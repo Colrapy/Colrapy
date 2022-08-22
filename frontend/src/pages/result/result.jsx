@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Button from '../../components/button';
 import styles from './result.module.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Header from '../../components/header';
 import data from'../../data/result.json';
 import paintImg from '../../assets/paintimg.png';
+import { authApi } from '../../shared/axios';
 
 const Result = (props) => {
     const navigate = useNavigate();
@@ -13,28 +13,22 @@ const Result = (props) => {
     let [mention, setMention] = useState();
     let [colors, setColors] = useState([{}]);
     let [baseImages, setBaseImages] = useState([{}]);
-    let [lineImages, setLineImages] = useState([{}]);
+    // let [lineImages, setLineImages] = useState([{}]);
     let [imgsrc, setImgsrc] = useState([]);
 
     // 서버로부터 결과 받아오기
     const getResult = async() => {
-        await axios.get('url')
+        await authApi.get('/diary/result/')
             .then((response) => {
-                // console.log(response.data);
-                setMention(response.data.mention.mention); //ok
-                // console.log(mention.mention);
+                setMention(response.data.mention.mention);
                 setColors([{ ...response.data.color1 },{ ...response.data.color2 }, { ...response.data.color3 }]);
-                // console.log(colors[0].color);
                 setBaseImages([{...response.data.base_images}]);
-                // console.log(...bImages);
-                setLineImages([{...response.data.line_images}]);
-                // console.log(...lImages);
+                // setLineImages([{...response.data.line_images}]);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
-
     
     // 테스트 data - 서버 죽었을 때
     // const getResult = () => {
@@ -46,11 +40,6 @@ const Result = (props) => {
 
     useEffect(() => {
         getResult();
-        objToArray(baseImages);
-    });
-
-    // object to array
-    const objToArray = (baseImages) => {
         if(baseImages) {
             let objToImgs = Object.entries(...baseImages);
             let images = [];
@@ -59,7 +48,19 @@ const Result = (props) => {
             }
             setImgsrc(images);
         }
-    }
+    }, [baseImages]);
+
+    // object to array
+    // const objToArray = (baseImages) => {
+    //     if(baseImages) {
+    //         let objToImgs = Object.entries(...baseImages);
+    //         let images = [];
+    //         for(let [key, value] of objToImgs) {
+    //             images.push(value);
+    //         }
+    //         setImgsrc(images);
+    //     }
+    // }
 
     const handleClick = (e) => {
         e.preventDefault();

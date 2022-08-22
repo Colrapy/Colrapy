@@ -4,13 +4,15 @@ import Button from '../../components/button';
 import { useNavigate } from 'react-router-dom';
 import InputLabel from '../../components/inputLabel';
 import { useState } from 'react';
-import axios from 'axios';
 import HeaderBack from '../../components/headerBack';
+import { api } from '../../shared/axios';
+import response from '../../data/login.json';
 
 const Login = (props) => {
   const navigate = useNavigate();
     const [email, setemail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     // 유효성 체크1: 이메일 형식 체크
     const emailCheck = (email) => {
@@ -37,59 +39,44 @@ const Login = (props) => {
 
       // email, password 칸 검사
       if(!checkInputValue(email, password)) return;
+
       try {
-        await axios.post('url', {
+        await api.post('/users/login/', {
           email: email,
           password: password
-        }, {
-          headers: { "Content-Type": "application/json" }
-        });
-        alert('로그인에 성공했습니다! 🥰');
-        setTimeout(() => {
-          navigate('/colrapy');
-        }, 1000);
-      } catch(error) {
-        alert('로그인에 실패했습니다. 😥');
+        })
+          .then((response) => {
+            localStorage.setItem('token', response.data.token);
+            alert('로그인에 성공했습니다. 🥰');
+            setTimeout(() => {
+              navigate('/colrapy');
+            }, 1000);
+          })
+      } catch (error) {
+          alert('로그인에 실패했습니다. 😥');
       }
     }
-
 
     // 테스트용 코드
     // const login = (e) => {
     //   e.preventDefault();
-
     //   // email, password 칸 검사
     //   if(!checkInputValue(email, password)) return;
-    //     alert('로그인에 성공했습니다! 🥰');
-    //     setTimeout(() => {
-    //       navigate('/colrapy');
-    //     }, 1000);
+    //   localStorage.setItem('token', response.data.token);
+    //   alert('로그인에 성공했습니다. 🥰');
+    //   navigate('/colrapy');
     // }
 
     // 카카오 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
-    const kakaoLogin = async (e) => {
+    const kakaoLogin = (e) => {
       e.preventDefault();
-      
-      await axios.get('url')
-        .then((response) => {
-          navigate('/users/login/kakao/');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      navigate('/users/login/kakao/');
     }
 
     // 네이버 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
-    const naverLogin = async (e) => {
+    const naverLogin = (e) => {
       e.preventDefault();
-      
-      await axios.get('url')
-        .then((response) => {
-          navigate('/users/login/naver/');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      navigate('/users/login/naver/');
     }
 
     const page_title = `컬라피 진단받고

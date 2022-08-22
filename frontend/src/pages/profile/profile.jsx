@@ -3,10 +3,10 @@ import { useState } from 'react';
 import InputLabel from '../../components/inputLabel';
 import Button from '../../components/button';
 import styles from './profile.module.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import data from '../../data/profile.json';
+import { authApi } from '../../shared/axios';
 
 const Profile = (props) => {
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Profile = (props) => {
 
     // 서버로부터 사용자 정보 받아오기
     const getUserInfo = async() => {
-        await axios.get('url',{
+        await authApi.get('/profile/',{
             params: {email: email}
         })
             .then((response) => {
@@ -68,7 +68,7 @@ const Profile = (props) => {
     // 프로필 수정 시
     const updateUserInfo = async() => {
         if(!checkInput(password)) return;
-        await axios.put('url', {
+        await authApi.put('/profile/', {
             age: age,
             username: username,
             password: password
@@ -99,7 +99,8 @@ const Profile = (props) => {
     //     }, 2000);
     // }
 
-    const handleGoMain = () => {
+    const handleLogout = () => {
+        localStorage.removeItem('token');
         navigate('/colrapy');
     }
 
@@ -108,7 +109,7 @@ const Profile = (props) => {
             <Header whiteback={true} />
             <div className={styles.content}>
                 <div className={styles.click_list}>
-                    <div className={styles.list_content} onClick={handleGoMain} >
+                    <div className={styles.list_content} onClick={handleLogout} >
                         로그아웃
                     </div>
                     <div className={styles.list_content} onClick={() => setshowProfile(!showProfile)} >

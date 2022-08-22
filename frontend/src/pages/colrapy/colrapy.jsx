@@ -3,10 +3,10 @@ import styles from './colrapy.module.css';
 import Button from '../../components/button';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { useState } from 'react';
 import Header from '../../components/header';
 import Bottom from '../../components/bottom';
+import { authApi } from '../../shared/axios';
 
 const Colrapy = () => {
     let navigate = useNavigate();
@@ -15,7 +15,7 @@ const Colrapy = () => {
 
     // 서버로부터 사용자명 받아오기
     const getUsername = async() => {
-        await axios.get('url')
+        await authApi.get('/colrapy/')
             .then((response) => {
                 setUsername(response.data.username);
                 setUserGreeting(`안녕하세요, ${username}님!

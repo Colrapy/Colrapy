@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './templates.module.css';
 import data from '../../data/template.json';
 import HeaderBack from '../../components/headerBack';
+import { authApi } from '../../shared/axios';
 
 const ChooseTemplates = () => {
     let [baseImages, setBaseImages] = useState({});
@@ -12,12 +12,12 @@ const ChooseTemplates = () => {
 
     // // 서버로부터 결과 받아오기
     const getResult = async() => {
-        await axios.get('url')
+        await authApi.get('/canvas/')
             .then((response) => {
                 setBaseImages(response.data.base_images);
             })
             .catch((error) => {
-                console.log(error);
+                alert('데이터 로딩에 실패했어요. 😥');
             });
     }
 

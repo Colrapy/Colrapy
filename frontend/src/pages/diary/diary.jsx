@@ -4,8 +4,8 @@ import Button from '../../components/button';
 import InputLabel from '../../components/inputLabel';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import HeaderBack from '../../components/headerBack';
+import { authApi } from '../../shared/axios';
 
 const Diary = (props) => {
     const navigate = useNavigate();
@@ -46,12 +46,10 @@ const Diary = (props) => {
         // input 검사
         if(!checkInput(activity, feeling)) return;
         try {
-            await axios.post('url', {
+            await authApi.post('/diary/', {
                 activity: activity,
                 feeling: feeling
-            }, {
-                headers: { "Content-Type": "application/json" }
-              })
+            })
             .then((response) => {
                 alert('기록이 완료되었어요!');
                 setTimeout(() => {

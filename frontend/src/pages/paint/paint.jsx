@@ -9,9 +9,9 @@ import { useCallback } from 'react';
 import Canvas from '../canvas/canvas';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import data from '../../data/painting.json';
 import Header from '../../components/header';
+import { authApi } from '../../shared/axios';
 
 
 const Paint = () => {
@@ -26,13 +26,13 @@ const Paint = () => {
 
     // 서버에서 색 정보, 템플릿 정보 가져오기
     const getInfo = async () => {
-        await axios.get('url')
+        await authApi.get('/canvas/painting')
             .then((response) => {
                 setRecoColors([{ ...response.data.color1 },{ ...response.data.color2 }, { ...response.data.color3 }]);
                 setImages({...response.data.line_images});
             })
             .catch((error) => {
-                alert('새로고침 해주세요😥');
+                alert('데이터 로딩에 실패했어요. 😥');
             })
     }
 
