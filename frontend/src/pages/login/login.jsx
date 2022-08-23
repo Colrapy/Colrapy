@@ -68,15 +68,31 @@ const Login = (props) => {
     // }
 
     // 카카오 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
-    const kakaoLogin = (e) => {
+    const kakaoLogin = async (e) => {
       e.preventDefault();
-      navigate('/users/login/kakao/');
+      
+      await api.get('/users/login/kakao/')
+        .then((response) => {
+          navigate('/users/login/kakao/');
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
     // 네이버 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
-    const naverLogin = (e) => {
+    const naverLogin = async (e) => {
       e.preventDefault();
-      navigate('/users/login/naver/');
+      
+      await api.get('/users/login/naver/')
+        .then((response) => {
+          navigate('/users/login/naver/');
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
     const page_title = `컬라피 진단받고
