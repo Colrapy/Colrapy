@@ -7,9 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import data from '../../data/profile.json';
 import { authApi } from '../../shared/axios';
+import { authStore } from '../../shared/store';
 
 const Profile = (props) => {
     const navigate = useNavigate();
+    const userAccess = authStore((state) => state.userAccess);
+    const changeAccess = authStore((state) => state.changeAccess);
+
     const [showProfile, setshowProfile] = useState(false);
     // 초기값은 서버로부터 전달받은 사용자 정보여야 함
     const [email, setEmail] = useState('');
@@ -100,8 +104,14 @@ const Profile = (props) => {
     // }
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        navigate('/colrapy');
+        if(userAccess === true) {
+            changeAccess();
+            alert('로그아웃 되었습니다. 😚');
+            setTimeout(() => {
+                navigate('/');
+            }, 1000);
+        }
+        // localStorage.removeItem('token');
     }
 
     return (
