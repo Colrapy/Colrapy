@@ -6,7 +6,7 @@ export const userStore = create(
     devtools((set) => ({
         useremail: '',
         username: 'colrapy',
-        userage: 24,
+        userage: 0,
         usertoken: 'f5q4wq6df5qv13sd',
         setsEmail: (mail) => set((state) => ({ useremail: mail })),
         setsUsername: (name) => set((state) => ({ username: name })),
@@ -15,10 +15,36 @@ export const userStore = create(
     }))
 ); 
 
-
-export let authStore = create(
+// 로그인 유무에 따른 접근 관리
+export const authStore = create(
     devtools((set) => ({
         userAccess: false,
         changeAccess: () => set((state) => ({ userAccess: !state.userAccess })) // 로그인 여부를 바꿔줌
+    }))
+);
+
+// 색상 관련 정보 저장
+export const colorStore = create(
+    devtools((set) => ({
+        colors: [],
+        baseImgs: [],
+        lineImgs: [],
+        setsColors: (colors) => set((state) => ({ colors: colors})),
+        setsBaseImgs: (imagesList) => {
+            let objToImgs = Object.entries(...imagesList);
+            let images = [];
+            for(let [key, value] of objToImgs) {
+                images.push(value);
+            }
+            set((state) => ({ baseImgs: images }))
+        },
+        setsLineImgs: (imagesList) => {
+            let objToImgs = Object.entries(...imagesList);
+            let images = [];
+            for(let [key, value] of objToImgs) {
+                images.push(value);
+            }
+            set((state) => ({ lineImgs: images }))
+        }        
     }))
 );
