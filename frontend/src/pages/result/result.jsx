@@ -5,63 +5,42 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import data from'../../data/result.json';
 import { authApi } from '../../shared/axios';
-import { userStore } from '../../shared/store';
+import { colorStore, userStore } from '../../shared/store';
 
 const Result = (props) => {
     const navigate = useNavigate();
     const username = userStore((state) => state.username);
+    const { colors, setsColors} = colorStore((state) => state);
+    const { baseImgs, setsBaseImgs } = colorStore((state) => state);
+    const { setsLineImgs } = colorStore((state) => state);
 
     let [mention, setMention] = useState();
-    let [colors, setColors] = useState([{}]);
-    let [baseImages, setBaseImages] = useState([{}]);
-    // let [lineImages, setLineImages] = useState([{}]);
-    let [imgsrc, setImgsrc] = useState([]);
 
     // 서버로부터 결과 받아오기
-    const getResult = async() => {
-        await authApi.get('/diary/result/')
-            .then((response) => {
-                setMention(response.data.mention.mention);
-                setColors([{ ...response.data.color1 },{ ...response.data.color2 }, { ...response.data.color3 }]);
-                setBaseImages([{...response.data.base_images}]);
-                // setLineImages([{...response.data.line_images}]);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+    // const getResult = async() => {
+    //     await authApi.get('/diary/result/')
+    //         .then((response) => {
+    //             setMention(response.data.mention.mention);
+    //             setColors([{ ...response.data.color1 },{ ...response.data.color2 }, { ...response.data.color3 }]);
+    //             setsBaseImgs([{...response.data.base_images}]);
+    //             // setlineImgs([{...response.data.line_images}]);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // }
     
     // 테스트 data - 서버 죽었을 때
-    // const getResult = () => {
-    //     setMention(data.mention.mention);
-    //     setColors([{ ...data.color1 },{ ...data.color2 }, { ...data.color3 }]);
-    //     setBaseImages([{...data.base_images}]);
-    //     setLineImages([{...data.line_images}]);
-    // }
+    const getResult = () => {
+        setMention(data.mention.mention);
+        setsColors([{ ...data.color1 },{ ...data.color2 }, { ...data.color3 }]);
+        setsBaseImgs([{...data.base_images}]);
+        setsLineImgs([{...data.line_images}]);
+    }
 
     useEffect(() => {
         getResult();
-        if(baseImages) {
-            let objToImgs = Object.entries(...baseImages);
-            let images = [];
-            for(let [key, value] of objToImgs) {
-                images.push(value);
-            }
-            setImgsrc(images);
-        }
-    }, [baseImages]);
-
-    // object to array
-    // const objToArray = (baseImages) => {
-    //     if(baseImages) {
-    //         let objToImgs = Object.entries(...baseImages);
-    //         let images = [];
-    //         for(let [key, value] of objToImgs) {
-    //             images.push(value);
-    //         }
-    //         setImgsrc(images);
-    //     }
-    // }
+    }, []);
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -80,7 +59,7 @@ const Result = (props) => {
     // 추천색 UI
     const recommandList = colors.map((color, index) => {
         return(
-            <li key={color.code + index} className={styles.recommand_item} >
+            <li key={`${color.code}${index}`} className={styles.recommand_item} >
                 <p className={styles.color_info}>
                     <span className={styles.hashtag}>{`#${color.color}`}</span>
                     <span className={styles.hashtag}>{color.code}</span>
@@ -97,7 +76,7 @@ const Result = (props) => {
     }) ;
 
     // 템플릿 UI
-    const templateList = imgsrc.map((img, index) => {
+    const templateList = baseImgs.map((img, index) => {
         return <img className={styles.template_image} alt={index+1} src={img}/>;
     });
 

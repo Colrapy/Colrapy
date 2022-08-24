@@ -4,48 +4,38 @@ import styles from './templates.module.css';
 import data from '../../data/template.json';
 import HeaderBack from '../../components/headerBack';
 import { authApi } from '../../shared/axios';
+import { colorStore } from '../../shared/store';
 
 const ChooseTemplates = () => {
-    let [baseImages, setBaseImages] = useState({});
-    let [imgsrc, setImgsrc] = useState([]);
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+    const baseImgs = colorStore((state) => state.baseImgs);
 
     // // 서버로부터 결과 받아오기
-    const getResult = async() => {
-        await authApi.get('/canvas/')
-            .then((response) => {
-                setBaseImages(response.data.base_images);
-            })
-            .catch((error) => {
-                alert('데이터 로딩에 실패했어요. 😥');
-            });
-    }
+    // const getResult = async() => {
+    //     await authApi.get('/canvas/')
+    //         .then((response) => {
+    //         })
+    //         .catch((error) => {
+    //             alert('데이터 로딩에 실패했어요. 😥');
+    //         });
+    // }
 
     // const getResult = () => {
     //     setBaseImages(data.base_images);
     // }
 
-    useEffect(() => {
-        getResult();
-        objToArray(baseImages)
-    });
+    // useEffect(() => {
+    //     getResult();
+    // });
 
-    // object to array
-    const objToArray = (baseImages) => {
-        let images = [];
-        const objToImgs = Object.entries(baseImages);
-        for(let [key, value] of objToImgs) {
-            images.push(value);
-        }
-        setImgsrc(images);
-    }
 
     // 특정 템플릿 클릭 시 라우팅과 함께 클릭한 템플릿 주소 state로 넘기기
     const handleRouting = (e) => {
-        let template_name = `line_image${e.target.alt}`;
+        // let template_name = `line_image${e.target.alt}`;
+        let src = e.target.alt;
         navigate('/canvas/painting', {
             state: {
-                t_name: template_name
+                imgSrc: src
             }
         });
     }
@@ -54,16 +44,16 @@ const ChooseTemplates = () => {
     const handleNone = (e) => {
         navigate('/canvas/painting', {
             state: {
-                t_name: 'none'
+                imgSrc: 'none'
             }
         });
     }
 
     // UI 생성
-    const templateList = imgsrc.map((img, index) => {
+    const templateList = baseImgs.map((img, index) => {
         return (
             <li key={img+index} className={styles.templates_item}>
-                <img className={styles.templates_image} src={img} alt={index+1} onClick={handleRouting}/>
+                <img className={styles.templates_image} src={img} alt={index} onClick={handleRouting}/>
              </li>
         )
     });

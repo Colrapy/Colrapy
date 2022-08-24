@@ -11,19 +11,15 @@ const Diary = (props) => {
     const navigate = useNavigate();
     let [activity, setActivity] = useState('');
     let [feeling, setFeeling] = useState('');
-    let [actLen, setActLen] = useState(0);
-    let [feelingLen, setFeelingLen] = useState(0);
 
     // activity 값 변경 시 발생하는 함수
     const handleChangeActivity = (e) => {
         setActivity(e.target.value);
-        setActLen(e.target.value.length);
     }
 
     // feeling 값 변경 시 발생하는 함수
     const handleChangeFeeling = (e) => {
         setFeeling(e.target.value);
-        setFeelingLen(e.target.value.length);
     }
 
     // 유효성 및 길이 체크
@@ -40,38 +36,38 @@ const Diary = (props) => {
     }
 
     // button 클릭시 submit 하는 함수, 서버에게 데이터 전송
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // input 검사
-        if(!checkInput(activity, feeling)) return;
-        try {
-            await authApi.post('/diary/', {
-                activity: activity,
-                feeling: feeling
-            })
-            .then((response) => {
-                alert('기록이 완료되었어요!');
-                setTimeout(() => {
-                    navigate('/diary/result');
-                }, 1000);
-            });
-        } catch (error) {
-            alert('오류가 발생했어요. 다시 시도해주세요. 😥');
-        }
-    }
-
-    // 테스트 코드 - 연결 시 삭제 필요
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
 
     //     // input 검사
     //     if(!checkInput(activity, feeling)) return;
-    //     alert('기록이 완료되었어요!');
-    //     setTimeout(() => {
-    //         navigate('/diary/result');
-    //     }, 1000);
+    //     try {
+    //         await authApi.post('/diary/', {
+    //             activity: activity,
+    //             feeling: feeling
+    //         })
+    //         .then((response) => {
+    //             alert('기록이 완료되었어요!');
+    //             setTimeout(() => {
+    //                 navigate('/diary/result');
+    //             }, 1000);
+    //         });
+    //     } catch (error) {
+    //         alert('오류가 발생했어요. 다시 시도해주세요. 😥');
+    //     }
     // }
+
+    // 테스트 코드 - 연결 시 삭제 필요
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // input 검사
+        if(!checkInput(activity, feeling)) return;
+        alert('기록이 완료되었어요!');
+        setTimeout(() => {
+            navigate('/diary/result');
+        }, 1000);
+    }
 
     return(
         <>
@@ -86,7 +82,7 @@ const Diary = (props) => {
                             placeholder={'데이트, 쇼핑 등 단어로 작성해주세요.'} 
                             onChange={handleChangeActivity}
                         />
-                        <div className={styles.length_count}>{actLen}/20</div>
+                        <div className={styles.length_count}>{activity.length}/20</div>
                     </div>
                     <div className={styles.write_box}>
                         <h2>기분은 어떠셨나요?</h2>
@@ -96,7 +92,7 @@ const Diary = (props) => {
                             placeholder={'오늘의 감정을 자유롭게 작성해주세요. 최소 30자이상은 작성하셔야해요.'}
                             onChange={handleChangeFeeling}
                         />
-                        <div className={styles.length_count}>{feelingLen}/100</div>
+                        <div className={styles.length_count}>{feeling.length}/100</div>
                     </div>
                     <Button 
                         content={'계속하기'} 

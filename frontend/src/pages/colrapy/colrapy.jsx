@@ -11,7 +11,7 @@ import { userStore } from '../../shared/store';
 
 const Colrapy = () => {
     const navigate = useNavigate();
-    const { useremail, setsEmail } = userStore((state) => state);
+    const { setsEmail } = userStore((state) => state);
     const { username, setsUsername } = userStore((state) => state);
 
     let [userGreeting, setUserGreeting] = useState('');
@@ -35,7 +35,7 @@ const Colrapy = () => {
 
     // 임시 코드
     const getUsername = () => {
-        setsUsername('사용자');
+        setsUsername('금밍밍');
         setsEmail('testuser@naver.com');
         setUserGreeting(`안녕하세요, ${username}님!
         오늘의 기분은 어떠신가요?

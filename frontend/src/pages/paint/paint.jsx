@@ -12,51 +12,36 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import data from '../../data/painting.json';
 import Header from '../../components/header';
 import { authApi } from '../../shared/axios';
+import { colorStore } from '../../shared/store';
 
 
 const Paint = () => {
     let navigate = useNavigate();
     const location = useLocation();
-    let t_name = location.state.t_name;
+    let imgSrc = location.state.imgSrc;
 
-    // 서버에서 받아오는 데이터 정보들
-    const [recoColors, setRecoColors] = useState([{}]);
-    const [images, setImages] = useState({});
-    const [background, setBackground] = useState('');
+    const colors = colorStore((state) => state.colors);
+    const lineImgs = colorStore((state) => state.lineImgs);
 
     // 서버에서 색 정보, 템플릿 정보 가져오기
-    const getInfo = async () => {
-        await authApi.get('/canvas/painting')
-            .then((response) => {
-                setRecoColors([{ ...response.data.color1 },{ ...response.data.color2 }, { ...response.data.color3 }]);
-                setImages({...response.data.line_images});
-            })
-            .catch((error) => {
-                alert('데이터 로딩에 실패했어요. 😥');
-            })
-    }
+    // const getInfo = async () => {
+    //     await authApi.get('/canvas/painting')
+    //         .then((response) => {
+    //             setRecoColors([{ ...response.data.color1 },{ ...response.data.color2 }, { ...response.data.color3 }]);
+    //             setImages({...response.data.line_images});
+    //         })
+    //         .catch((error) => {
+    //             alert('데이터 로딩에 실패했어요. 😥');
+    //         })
+    // }
 
     // 임시 데이터
     // const getInfo = () => {
     //     setRecoColors([{ ...data.color1 },{ ...data.color2 }, { ...data.color3 }]);
     //     setImages({...data.line_images});
     // }
-    
-    useEffect(() => {
-        getInfo();
-        objToArray(t_name, images);
-    });
 
-    // object to array
-    const objToArray = (t_name, images) => {
-        if(t_name === 'none') setBackground('');
-        const objToImgs = Object.entries(images);
-        for(let [key, value] of objToImgs) {
-            if(key === t_name) setBackground(value);
-        }
-    }
-
-    const colorList = recoColors.map((color) => {
+    const colorList = colors.map((color) => {
         return (
             <li key={color.code} className={styles.reco_color} style={{backgroundColor: color.code}} onClick={() => setColor(color.code)}></li>
         )
@@ -188,7 +173,7 @@ const Paint = () => {
     }, [startPaint, paint, exitPaint]);
     
     const nowColor = { color: color };
-    const import_background = background;
+    const import_background = lineImgs[imgSrc];
     
 
     return (
