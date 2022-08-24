@@ -4,12 +4,13 @@ import styles from './result.module.css';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import data from'../../data/result.json';
-import paintImg from '../../assets/paintimg.png';
 import { authApi } from '../../shared/axios';
+import { userStore } from '../../shared/store';
 
 const Result = (props) => {
     const navigate = useNavigate();
-    let username = '컬라피';
+    const username = userStore((state) => state.username);
+
     let [mention, setMention] = useState();
     let [colors, setColors] = useState([{}]);
     let [baseImages, setBaseImages] = useState([{}]);

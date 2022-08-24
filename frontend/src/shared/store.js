@@ -4,9 +4,14 @@ import { devtools } from 'zustand/middleware';
 // 사용자 정보 저장
 export const userStore = create(
     devtools((set) => ({
-        email: '',
+        useremail: '',
         username: 'colrapy',
-        token: ''
+        userage: 24,
+        usertoken: 'f5q4wq6df5qv13sd',
+        setsEmail: (mail) => set((state) => ({ useremail: mail })),
+        setsUsername: (name) => set((state) => ({ username: name })),
+        setsAge: (age) => set((state) => ({ userage: age })),
+        setsToken: (key) => set((state) => ({ usertoken: key }))
     }))
 ); 
 
