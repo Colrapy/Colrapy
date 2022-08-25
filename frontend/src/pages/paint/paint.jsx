@@ -3,7 +3,7 @@ import styles from './paint.module.css';
 import { HexColorPicker } from 'react-colorful';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCloudArrowDown,
+  faShareNodes,
   faFillDrip,
   faPaintbrush,
   faArrowRotateLeft,
@@ -164,6 +164,12 @@ const Paint = () => {
     };
   }, [startPaint, paint, exitPaint]);
 
+  // 공유하기 기능 추가
+  // useEffect(() => { 
+  //   const script:
+  // })
+
+
   const nowColor = { color: color };
   const import_background = lineImgs[imgSrc];
 
@@ -200,7 +206,7 @@ const Paint = () => {
           <div className={styles.control_element}>
             <FontAwesomeIcon
               className={styles.icon_save}
-              icon={faCloudArrowDown}
+              icon={faShareNodes}
               onClick={() => exportImageHandler()}
             />
           </div>

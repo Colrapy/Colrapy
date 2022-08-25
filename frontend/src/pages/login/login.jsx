@@ -78,15 +78,15 @@ const Login = (props) => {
   };
 
   /// 카카오 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
-  const KAKAO_AUTH_URL = 'https://kauth.kakao.com/oauth/authorize?client_id=6c4f161a2209e1e3aaeb6db82add22c4&redirect_uri=http://127.0.0.1:8000/users/login/kakao/callback&response_type=code';
   const kakaoLogin = () => {
+    const KAKAO_AUTH_URL = 'https://kauth.kakao.com/oauth/authorize?client_id=6c4f161a2209e1e3aaeb6db82add22c4&redirect_uri=http://127.0.0.1:8000/users/login/kakao/callback&response_type=code';
     window.location.href = KAKAO_AUTH_URL;
   };
 
   // 네이버 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
   //const NAVER_AUTH_URL = 'https://nid.naver.com/oauth2.0/authorize?client_id={naver_rest_api_key}&redirect_uri={naver_redirect_uri}&response_type=code';
-  const NAVER_AUTH_URL = 'https://nid.naver.com/oauth2.0/authorize?client_id=K1u35nUZpjsd7AXLWvjH&redirect_uri=http://127.0.0.1:8000/users/login/naver/callback/&response_type=code';
   const naverLogin = () => {
+    const NAVER_AUTH_URL = 'https://nid.naver.com/oauth2.0/authorize?client_id=K1u35nUZpjsd7AXLWvjH&redirect_uri=http://127.0.0.1:8000/users/login/naver/callback/&response_type=code';
     window.location.href = NAVER_AUTH_URL;
   };
 
