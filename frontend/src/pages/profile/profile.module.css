@@ -2,33 +2,33 @@
 @value color_white, color_gray, color_main from '../../common/colors.css';
 
 .content {
-    height: 100%;
-    padding: basic_padding;
-    width: 100%;
-    background-color: color_main;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  padding: basic_padding;
+  width: 100%;
+  background-color: color_main;
+  display: flex;
+  flex-direction: column;
 }
 
 .click_list {
-    margin: 2rem 0;
+  margin: 2rem 0;
 }
 
 .list_content {
-    text-align: left;
-    font-size: 1.3rem;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid color_gray;
-    cursor: pointer;
+  text-align: left;
+  font-size: 1.3rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid color_gray;
+  cursor: pointer;
 }
 
 .controlbar_accordion {
-    padding: 2rem 1rem;
+  padding: 2rem 1rem;
 }
 
 /* 아이폰 SE 사이즈 고려 */
 @media screen and (max-width: 400px) {
-    .content {
-        height: 110%;
-    }
+  .content {
+    height: 110%;
+  }
 }

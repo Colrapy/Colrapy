@@ -1,24 +1,24 @@
 {
-    "color1": {
-        "color": "빨간색",
-        "code": "#B92021"
-    },
-    "color2": {
-        "color": "주황색",
-        "code": "#EB6F0E"
-    },
-    "color3": {
-        "color": "노란색",
-        "code": "#FFD500"
-    },
-    "base_images": {
-        "base_image1": "/images/template_image/b_red1.png",
-        "base_image2": "/images/template_image/b_orange2.png",
-        "base_image3": "/images/template_image/b_yellow1.png"
-    },
-    "line_images": {
-        "line_image1": "/images/template_image/l_red1.png",
-        "line_image2": "/images/template_image/l_orange2.png",
-        "line_image3": "/images/template_image/l_yellow1.png"
-    }
+  "color1": {
+    "color": "빨간색",
+    "code": "#B92021"
+  },
+  "color2": {
+    "color": "주황색",
+    "code": "#EB6F0E"
+  },
+  "color3": {
+    "color": "노란색",
+    "code": "#FFD500"
+  },
+  "base_images": {
+    "base_image1": "/images/template_image/b_red1.png",
+    "base_image2": "/images/template_image/b_orange2.png",
+    "base_image3": "/images/template_image/b_yellow1.png"
+  },
+  "line_images": {
+    "line_image1": "/images/template_image/l_red1.png",
+    "line_image2": "/images/template_image/l_orange2.png",
+    "line_image3": "/images/template_image/l_yellow1.png"
+  }
 }

@@ -6,15 +6,13 @@ import { useState, useRef, useEffect } from 'react';
 import { useCallback } from 'react';
 
 const Canvas = (props) => {
-
-    return (
-        <div className={styles.paint_box}>
-
-            <div className={styles.canvas_container}>
-               <ReactSketchCanvas />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className={styles.paint_box}>
+      <div className={styles.canvas_container}>
+        <ReactSketchCanvas />
+      </div>
+    </div>
+  );
+};
 
 export default Canvas;

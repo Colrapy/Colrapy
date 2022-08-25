@@ -4,14 +4,14 @@ import Button from '../../components/button';
 import InputLabel from '../../components/auth/inputLabel';
 
 const Join = (props) => {
-    // const [email, set_email] = useState('');
-    // const [username, set_username] = useState('');
-    // const [password, set_password] = useState('');
-    // const [password_check, set_password_check] = useState('');
-    // const [password_error, set_password_error] = useState('');
-    // const [age, set_age] = useState('');
+  // const [email, set_email] = useState('');
+  // const [username, set_username] = useState('');
+  // const [password, set_password] = useState('');
+  // const [password_check, set_password_check] = useState('');
+  // const [password_error, set_password_error] = useState('');
+  // const [age, set_age] = useState('');
 
-    const info_box1_content = `
+  const info_box1_content = `
     < colrapy >('www.colrapy.com'이하 'colrapy')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
     ○ 이 개인정보처리방침은 2022년 6월 1부터 적용됩니다.
     제1조(개인정보의 처리 목적)
@@ -75,24 +75,41 @@ const Join = (props) => {
     ※ 추가적인 이용·제공 시 고려사항에 대한 판단기준은 사업자/단체 스스로 자율적으로 판단하여 작성·공개함
     `;
 
-    return (
-        <div className={styles.join_form}>
-            <h2 className={styles.page_title}>회원가입</h2>
-            {/* <Input /> */}
-            <form>
-                <InputLabel label='이메일' name='email' placeholder='이메일을 입력하세요.' />
-                <InputLabel label='이름 및 닉네임' name='username' placeholder='이름 및 닉네임을 입력하세요.' />
-                <InputLabel label='비밀번호' name='password' placeholder='비밀번호를 입력하세요.' type='password' />
-                <InputLabel label='비밀번호 확인' name='password_check' placeholder='비밀번호를 한번 더 입력하세요.' />
-                <InputLabel label='나이' name='age' placeholder='나이를 입력하세요.' />
-                {/* <InputLabel label='개인정보처리방침' name='personal_check1' type='checkbox' />
+  return (
+    <div className={styles.join_form}>
+      <h2 className={styles.page_title}>회원가입</h2>
+      {/* <Input /> */}
+      <form>
+        <InputLabel
+          label="이메일"
+          name="email"
+          placeholder="이메일을 입력하세요."
+        />
+        <InputLabel
+          label="이름 및 닉네임"
+          name="username"
+          placeholder="이름 및 닉네임을 입력하세요."
+        />
+        <InputLabel
+          label="비밀번호"
+          name="password"
+          placeholder="비밀번호를 입력하세요."
+          type="password"
+        />
+        <InputLabel
+          label="비밀번호 확인"
+          name="password_check"
+          placeholder="비밀번호를 한번 더 입력하세요."
+        />
+        <InputLabel label="나이" name="age" placeholder="나이를 입력하세요." />
+        {/* <InputLabel label='개인정보처리방침' name='personal_check1' type='checkbox' />
                     <div className={styles.info_content}>{info_box1_content}</div>
                 <InputLabel label='이용약관' name='personal_check2' type='checkbox' />
                     <div className={styles.info_content}>{info_box1_content}</div> */}
-                <Button content={'회원가입하기'} pageUrl={'/main'} type='submit'/>
-            </form>
-        </div>
-    );
-}
+        <Button content={'회원가입하기'} pageUrl={'/main'} type="submit" />
+      </form>
+    </div>
+  );
+};
 
 export default Join;

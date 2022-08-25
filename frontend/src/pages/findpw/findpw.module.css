@@ -1,21 +1,17 @@
 @value basic_padding from '../../common/set.css';
 
 .find_password_box {
-    display: flex;
-    flex-direction: column;
-    font-size: 1rem;
-    padding: basic_padding;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  padding: basic_padding;
 }
 
 input {
-    width: 100%;
-    padding: 0.5rem;
-}
-
-
-.page_title {
+  width: 100%;
+  padding: 0.5rem;
 }
 
 .email_box {
-    padding: calc(basic_padding/2);
+  padding: calc(basic_padding/2);
 }
