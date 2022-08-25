@@ -15,7 +15,6 @@ const Profile = (props) => {
 
   const { username, setsUsername } = userStore((state) => state);
   const { userage, setsAge } = userStore((state) => state);
-  const { setsToken } = userStore((state) => state.setsToken);
   const useremail = userStore((state) => state.useremail);
 
   const [showProfile, setshowProfile] = useState(false);
@@ -83,14 +82,13 @@ const Profile = (props) => {
 
   const handleLogout = () => {
     if (userAccess === true) {
-      setsToken();
       changeAccess();
+      localStorage.removeItem('token');
       alert('로그아웃 되었습니다. 😚');
       setTimeout(() => {
         navigate('/');
       }, 1000);
     }
-    // localStorage.removeItem('token');
   };
 
   return (

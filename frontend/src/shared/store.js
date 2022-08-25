@@ -7,11 +7,11 @@ export const userStore = create(
     useremail: '',
     username: 'colrapy',
     userage: 0,
-    usertoken: 'f5q4wq6df5qv13sd',
+    // usertoken: 'f5q4wq6df5qv13sd',
     setsEmail: (mail) => set((state) => ({ useremail: mail })),
     setsUsername: (name) => set((state) => ({ username: name })),
     setsAge: (age) => set((state) => ({ userage: age })),
-    setsToken: (key) => set((state) => ({ usertoken: key })),
+    // setsToken: (key) => set((state) => ({ usertoken: key })),
   }))
 );
 

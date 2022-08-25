@@ -12,7 +12,6 @@ import { authStore, userStore } from '../../shared/store';
 const Login = (props) => {
   const navigate = useNavigate();
   const { userAccess, changeAccess } = authStore((state) => state);
-  const { setsToken } = userStore((state) => state.setsToken);
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -50,8 +49,7 @@ const Login = (props) => {
   //         password: password,
   //       })
   //       .then((response) => {
-  //         setsToken(response.data.token);
-  //         // localStorage.setItem('token', response.data.token);
+  //         localStorage.setItem('token', response.data.token);
   //         alert('로그인에 성공했습니다. 🥰');
   //         if (userAccess === false) {
   //           changeAccess();
@@ -71,7 +69,7 @@ const Login = (props) => {
     // email, password 칸 검사
     if (!checkInputValue(userId, password)) return;
     setUserId(userId);
-    // localStorage.setItem('token', response.data.token);
+    localStorage.setItem('token', response.data.token);
     alert('로그인에 성공했습니다. 🥰');
     if (userAccess === false) {
       changeAccess();
@@ -79,38 +77,22 @@ const Login = (props) => {
     }
   };
 
-  // 카카오 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
-  const kakaoLogin = async (e) => {
-    e.preventDefault();
-
-    await api
-      .get('/users/login/kakao/')
-      .then((response) => {
-        navigate('/users/login/kakao/');
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  /// 카카오 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
+  const KAKAO_AUTH_URL = 'https://kauth.kakao.com/oauth/authorize?client_id=6c4f161a2209e1e3aaeb6db82add22c4&redirect_uri=http://127.0.0.1:8000/users/login/kakao/callback&response_type=code';
+  const kakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
   };
 
   // 네이버 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
-  const naverLogin = async (e) => {
-    e.preventDefault();
-
-    await api
-      .get('/users/login/naver/')
-      .then((response) => {
-        navigate('/users/login/naver/');
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  //const NAVER_AUTH_URL = 'https://nid.naver.com/oauth2.0/authorize?client_id={naver_rest_api_key}&redirect_uri={naver_redirect_uri}&response_type=code';
+  const NAVER_AUTH_URL = 'https://nid.naver.com/oauth2.0/authorize?client_id=K1u35nUZpjsd7AXLWvjH&redirect_uri=http://127.0.0.1:8000/users/login/naver/callback/&response_type=code';
+  const naverLogin = () => {
+    window.location.href = NAVER_AUTH_URL;
   };
 
   const page_title = `컬라피 진단받고
     힐링하러 가볼까요?`;
+
   return (
     <>
       <HeaderBack />
