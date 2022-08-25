@@ -1,7 +1,7 @@
 {
-    "base_images": {
-        "base_image1": "/images/template_image/b_red1.jpg",
-        "base_image2": "/images/template_image/b_orange2.jpg",
-        "base_image3": "/images/template_image/b_yellow1.png"
-    }
+  "base_images": {
+    "base_image1": "/images/template_image/b_red1.jpg",
+    "base_image2": "/images/template_image/b_orange2.jpg",
+    "base_image3": "/images/template_image/b_yellow1.png"
+  }
 }

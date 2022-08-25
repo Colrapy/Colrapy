@@ -1,11 +1,10 @@
 @value basic_padding from '../../common/set.css';
 @value color_white, color_gray, color_main, color_main_soft from '../../common/colors.css';
 
-
 .content {
-    padding: basic_padding;
+  padding: basic_padding;
 }
 
 .button_box {
-    margin: 4rem 0;
+  margin: 4rem 0;
 }

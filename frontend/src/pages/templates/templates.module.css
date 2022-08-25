@@ -2,39 +2,40 @@
 @value color_orange, color_white, color_gray, color_main, color_black from '../../common/colors.css';
 
 .content {
-    padding: basic_padding;
-    background-color: color_main;
+  padding: basic_padding;
+  background-color: color_main;
 }
 
 .page_info {
-    text-align: left;
-    font-size: 1.1rem;
-    font-weight: 300;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 300;
 }
 
 .templates_list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .templates_item {
-    list-style: none;
-    margin: 2rem 0;
+  list-style: none;
+  margin: 2rem 0;
 }
 
 .templates_image {
-    width: 100%;
+  width: 100%;
 }
 
-.templates_image:hover, .none_template:hover {
-    cursor: pointer;
+.templates_image:hover,
+.none_template:hover {
+  cursor: pointer;
 }
 
 .none_template {
-    width: 100%;
-    font-size: 1.3rem;
+  width: 100%;
+  font-size: 1.3rem;
 }

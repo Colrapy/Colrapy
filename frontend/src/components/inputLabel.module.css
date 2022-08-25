@@ -2,47 +2,50 @@
 @value color_gray, color_black, color_main from '../common/colors.css';
 
 .label_box {
-    padding: 0.5rem 0;
-    text-align: left;
-    font-size: 1rem;
-    width: 100%;
+  padding: 0.5rem 0;
+  text-align: left;
+  font-size: 1rem;
+  width: 100%;
 }
 
 .label_name {
-    font-weight: 500;
+  font-weight: 500;
 }
 
-.input_box, .text_box {
-    width: 100%;
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    font-size: 1rem;
-    font-family: 'Pretendard';
-    color: color_gray;
+.input_box,
+.text_box {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-family: 'Pretendard';
+  color: color_gray;
 }
 
 .input_box {
-    border: none;
-    border-bottom: 1px solid color_gray;
-    outline: none;
-    background-color: transparent;
+  border: none;
+  border-bottom: 1px solid color_gray;
+  outline: none;
+  background-color: transparent;
 }
 
 .text_box {
-    height: 150px;
-    border: 1px solid color_gray;
-    resize: none;
-    outline-color: color_black;
-    line-height: 25px;
-    border-radius: 0.5rem;
-    background-color: transparent;
+  height: 150px;
+  border: 1px solid color_gray;
+  resize: none;
+  outline-color: color_black;
+  line-height: 25px;
+  border-radius: 0.5rem;
+  background-color: transparent;
 }
 
-.input_box::placeholder, .text_box::placeholder {
-    color: color_gray;
+.input_box::placeholder,
+.text_box::placeholder {
+  color: color_gray;
 }
 
-.input_box:focus, .text_box:focus {
-    color: color_black;
-    border-bottom: 2px solid color_black;
+.input_box:focus,
+.text_box:focus {
+  color: color_black;
+  border-bottom: 2px solid color_black;
 }

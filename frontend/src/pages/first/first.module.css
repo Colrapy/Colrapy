@@ -2,21 +2,21 @@
 @value content_height, response_width, response_padding, basic_padding from '../../common/set.css';
 
 .content {
-    height: content_height;
-    color: color_main;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: basic_padding;
+  height: content_height;
+  color: color_main;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: basic_padding;
 }
 
 .display_content {
-    margin: 0;
-    text-align: left;
-    font-size: 1.3rem;
-    font-weight: 400;
-    line-height: 2rem;
-    white-space: pre-line;
+  margin: 0;
+  text-align: left;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 2rem;
+  white-space: pre-line;
 }
 
 /* @media screen and (max-width: response_width) {
