@@ -18,35 +18,35 @@ const Colrapy = () => {
   let [userGreeting, setUserGreeting] = useState('');
 
   // 서버로부터 사용자명 받아오기
-  // const getUsername = async () => {
-  //   await authApi
-  //     .get('/colrapy/')
-  //     .then((response) => {
-  //       setsUsername(response.data.username);
-  //       setsEmail(response.data.email);
-  //       setUserGreeting(`안녕하세요, ${username}님!
-  //             오늘의 기분은 어떠신가요?
+  const getUsername = async () => {
+    await authApi
+      .get('/colrapy/')
+      .then((response) => {
+        setsUsername(response.data.username);
+        setsEmail(response.data.email);
+        setUserGreeting(`안녕하세요, ${username}님!
+              오늘의 기분은 어떠신가요?
 
-  //             감정 일기를 작성하고
-  //             컬라피에서 제공하는 컬러테라피로
-  //             오늘 하루를 마무리해보세요.`);
-  //     })
-  //     .catch((error) => {
-  //       alert('데이터 로드에 실패했어요. 😥');
-  //     });
-  // };
+              감정 일기를 작성하고
+              컬라피에서 제공하는 컬러테라피로
+              오늘 하루를 마무리해보세요.`);
+      })
+      .catch((error) => {
+        alert('데이터 로드에 실패했어요. 😥');
+      });
+  };
 
   // 임시 코드
-  const getUsername = () => {
-    setsUsername('누구겡');
-    setsEmail('testers@daum.net');
-    setUserGreeting(`안녕하세요, ${username}님!
-        오늘의 기분은 어떠신가요?
+  // const getUsername = () => {
+  //   setsUsername('누구겡');
+  //   setsEmail('testers@daum.net');
+  //   setUserGreeting(`안녕하세요, ${username}님!
+  //       오늘의 기분은 어떠신가요?
 
-        감정 일기를 작성하고
-        컬라피에서 제공하는 컬러테라피로
-        오늘 하루를 마무리해보세요.`);
-  };
+  //       감정 일기를 작성하고
+  //       컬라피에서 제공하는 컬러테라피로
+  //       오늘 하루를 마무리해보세요.`);
+  // };
 
   useEffect(() => {
     getUsername();

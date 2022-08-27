@@ -53,34 +53,34 @@ const Profile = (props) => {
   };
 
   // 프로필 수정 시
-  // const updateUserInfo = async (useremail) => {
-  //   if (!checkInput(password)) return;
-  //   await authApi
-  //     .put(`/profile/${useremail}`, {
-  //       age: userage,
-  //       username: username,
-  //       password: password,
-  //     })
-  //     .then((response) => {
-  //       alert('수정이 완료되었어요! 잠시 후 메인으로 이동합니다.');
-  //       setTimeout(() => {
-  //         navigate('/colrapy');
-  //       }, 2000);
-  //     })
-  //     .catch((error) => {
-  //       alert('오류가 발생했어요. 새로고침 해주세요.😥');
-  //     });
-  // };
+  const updateUserInfo = async (useremail) => {
+    if (!checkInput(password)) return;
+    await authApi
+      .put(`/profile/${useremail}`, {
+        age: userage,
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        alert('수정이 완료되었어요! 잠시 후 메인으로 이동합니다.');
+        setTimeout(() => {
+          navigate('/colrapy');
+        }, 2000);
+      })
+      .catch((error) => {
+        alert('오류가 발생했어요. 새로고침 해주세요.😥');
+      });
+  };
 
   // 임시 코드2
-  const updateUserInfo = async () => {
-    if (!checkInput(password)) return;
-    setPassword(password);
-    alert('수정이 완료되었어요! 잠시 후 메인으로 이동합니다.');
-    setTimeout(() => {
-      navigate('/colrapy');
-    }, 2000);
-  };
+  // const updateUserInfo = async () => {
+  //   if (!checkInput(password)) return;
+  //   setPassword(password);
+  //   alert('수정이 완료되었어요! 잠시 후 메인으로 이동합니다.');
+  //   setTimeout(() => {
+  //     navigate('/colrapy');
+  //   }, 2000);
+  // };
 
   const handleLogout = () => {
     if (userAccess === true) {
