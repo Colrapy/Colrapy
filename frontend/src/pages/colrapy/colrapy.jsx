@@ -7,10 +7,12 @@ import { useState } from 'react';
 import Header from '../../components/header';
 import Bottom from '../../components/bottom';
 import { authApi } from '../../shared/axios';
-import { userStore } from '../../shared/store';
+import { authStore, userStore } from '../../shared/store';
+import Error from '../error/error';
 
 const Colrapy = () => {
   const navigate = useNavigate();
+  const userAccess = authStore((state) => state.userAccess);
   const { setsEmail } = userStore((state) => state);
   const { username, setsUsername } = userStore((state) => state);
   let [userGreeting, setUserGreeting] = useState('');
@@ -49,6 +51,10 @@ const Colrapy = () => {
   useEffect(() => {
     getUsername();
   }, [username]); // 컴포넌트가 실행될 때 한번만 데이터 가져오기
+
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
 
   // 일기 작성페이지로 이동
   const handleGoDiary = () => {

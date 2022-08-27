@@ -1,0 +1,20 @@
+@value color_white, color_main from '../../common/colors.css';
+@value basic_padding from '../../common/set.css';
+
+.content {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: basic_padding;
+}
+
+.accessnot {
+    color: color_white;
+    font-size: 1.5rem;
+}
+
+.errorment {
+    color: color_white;
+    font-size: 3rem;
+}

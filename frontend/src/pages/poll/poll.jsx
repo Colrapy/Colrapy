@@ -3,9 +3,15 @@ import Button from '../../components/button';
 import styles from './poll.module.css';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
+import { authStore } from '../../shared/store';
+import Error from '../error/error';
 
 const Poll = () => {
   const navigate = useNavigate();
+  const userAccess = authStore((state) => state.userAccess);
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
 
   const handleGoTemplates = () => {
     navigate('/canvas/templates');

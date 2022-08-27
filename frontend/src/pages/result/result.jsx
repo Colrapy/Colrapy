@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import data from '../../data/result.json';
 import { authApi } from '../../shared/axios';
-import { colorStore, userStore } from '../../shared/store';
+import { authStore, colorStore, userStore } from '../../shared/store';
+import Error from '../error/error';
 
 const Result = (props) => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const Result = (props) => {
 
   let [mention, setMention] = useState();
   let [prediction, setPrediction] = useState();
+
+  const userAccess = authStore((state) => state.userAccess);
 
   // 서버로부터 결과 받아오기
   const getResult = async () => {
@@ -47,8 +50,12 @@ const Result = (props) => {
 
   useEffect(() => {
     getResult();
-  }, []);
+  });
 
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
+  
   const handleClick = (e) => {
     e.preventDefault();
     navigate('/canvas/templates');

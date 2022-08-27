@@ -16,10 +16,13 @@ import Canvas from '../canvas/canvas';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
-import { colorStore } from '../../shared/store';
+import { authStore, colorStore } from '../../shared/store';
+import Error from '../error/error';
 
 const Paint = () => {
   let navigate = useNavigate();
+  const userAccess = authStore((state) => state.userAccess);
+
   const location = useLocation();
   let imgSrc = location.state.imgSrc;
   const colors = colorStore((state) => state.colors);
@@ -182,6 +185,10 @@ const Paint = () => {
     };
   }, [startPaint, paint, exitPaint]);
 
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
+  
   // 공유하기 기능 추가
   // useEffect(() => { 
   //   const script:
