@@ -10,6 +10,7 @@ import Paint from './pages/paint/paint';
 import Profile from './pages/profile/profile';
 import Colrapy from './pages/colrapy/colrapy';
 import Loading from './pages/loding/loding';
+import Error from './pages/error/error';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
                 <Route path='/canvas/templates' element={ <ChooseTemplates /> } />
                 <Route path='/canvas/painting' element={ <Paint/> } />
                 <Route path='/canvas/poll' element={ <Poll /> } />
-                {/* <Route path='/canvas' element={ <Canvas /> } /> */}
+                <Route path='/*' element={ <Error /> } />
               </Routes>
           </BrowserRouter>
         </div>

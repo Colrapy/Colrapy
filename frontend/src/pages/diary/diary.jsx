@@ -6,11 +6,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeaderBack from '../../components/headerBack';
 import { authApi } from '../../shared/axios';
+import { authStore } from '../../shared/store';
+import Error from '../error/error';
 
 const Diary = (props) => {
   const navigate = useNavigate();
+
   let [activity, setActivity] = useState('');
   let [feeling, setFeeling] = useState('');
+  const userAccess = authStore((state) => state.userAccess);
+
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
 
   // activity 값 변경 시 발생하는 함수
   const handleChangeActivity = (e) => {

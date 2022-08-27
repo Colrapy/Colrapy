@@ -13,12 +13,28 @@
   background-color: color_main;
 }
 
+.transparent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: header_padding;
+}
+
+.back_iconWhite {
+  font-size: 2rem;
+  margin: auto 0;
+  color: color_main;
+}
+
 .back_icon {
   font-size: 2rem;
   margin: auto 0;
   color: color_black;
 }
 
-.back_icon:hover {
+.back_icon:hover, .back_iconWhite:hover {
   cursor: pointer;
 }

@@ -2,11 +2,16 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './templates.module.css';
 import HeaderBack from '../../components/headerBack';
-import { colorStore } from '../../shared/store';
+import { authStore, colorStore } from '../../shared/store';
+import Error from '../error/error';
 
 const ChooseTemplates = () => {
   const navigate = useNavigate();
   const baseImgs = colorStore((state) => state.baseImgs);
+  const userAccess = authStore((state) => state.userAccess);
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
 
   // 특정 템플릿 클릭 시 라우팅과 함께 클릭한 템플릿 주소 state로 넘기기
   const handleRouting = (e) => {

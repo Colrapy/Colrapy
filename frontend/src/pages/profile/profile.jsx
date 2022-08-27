@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import { authApi } from '../../shared/axios';
 import { authStore, userStore } from '../../shared/store';
+import Error from '../error/error';
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -20,6 +21,11 @@ const Profile = (props) => {
   const [showProfile, setshowProfile] = useState(false);
   // 초기값은 서버로부터 전달받은 사용자 정보여야 함
   const [password, setPassword] = useState('');
+
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
+
 
   // 입력 값 검사 & state 변경시 발생하는 함수
   const checkNum = /^[0-9]+$/;
@@ -36,10 +42,6 @@ const Profile = (props) => {
   const handleChangePw = (e) => {
     setPassword(e.target.value);
   };
-
-  useEffect(() => {
-    // getUserInfo();
-  }, []);
 
   // input값 체크
   const checkInput = (password) => {
