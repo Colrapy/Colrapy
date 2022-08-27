@@ -38,38 +38,36 @@ const Diary = (props) => {
   };
 
   // button 클릭시 submit 하는 함수, 서버에게 데이터 전송
-  // const handleSubmit = async (e) => {
-  //     e.preventDefault();
-
-  //     // input 검사
-  //     if(!checkInput(activity, feeling)) return;
-  //     try {
-  //         await authApi.post('/diary/', {
-  //             activity: activity,
-  //             feeling: feeling
-  //         })
-  //         .then((response) => {
-  //             alert('기록이 완료되었어요!');
-  //             setTimeout(() => {
-  //                 navigate('/diary/result');
-  //             }, 1000);
-  //         });
-  //     } catch (error) {
-  //         alert('오류가 발생했어요. 다시 시도해주세요. 😥');
-  //     }
-  // }
-
-  // 테스트 코드 - 연결 시 삭제 필요
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // input 검사
-    if (!checkInput(activity, feeling)) return;
-    alert('기록이 완료되었어요!');
-    setTimeout(() => {
-      navigate('/diary/result');
-    }, 1000);
-  };
+    if(!checkInput(activity, feeling)) return;
+    try {
+      await authApi.post('/diary/', {
+        activity: activity,
+        feeling: feeling
+      })
+      .then((response) => {
+        alert('기록이 완료되었어요!');
+      });
+    } catch (error) {
+      alert('오류가 발생했어요. 다시 시도해주세요. 😥');
+    }
+    navigate('/diary/loding');
+  }
+
+  // 테스트 코드 - 연결 시 삭제 필요
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   // input 검사
+  //   if (!checkInput(activity, feeling)) return;
+  //   alert('기록이 완료되었어요!');
+  //   setTimeout(() => {
+  //     navigate('/diary/result');
+  //   }, 1000);
+  // };
 
   return (
     <>
