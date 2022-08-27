@@ -44,6 +44,38 @@ const Paint = () => {
     }, 1000);
   };
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src="https://developers.kakao.com/sdk/js/kakao.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => document.body.removeChild(script);
+  }, []);
+
+  const shareKakao = () => {
+    // kakao sdk script 부른 후 window.kakao로 접근
+    if (window.Kakao) {
+      const kakao = window.Kakao;
+
+      if(!kakao.isInitialized()) {
+        kakao.init('자바스크립트 키');
+      }
+
+      kakao.Link.sendDefault({
+        objectType: "feed",
+        content: {
+          title: "colrapy: 결과물",
+          description: "AI 컬러테라피 결과물",
+          imageUrl: "이미지 주소",
+          link: {
+            mobileWebUrl: "공유할 url 주소",
+            webUrl: "공유할 url 주소"
+          }
+        }
+      });
+    }
+  }
+
   const [showPalette, setshowPalette] = useState(false); // 아코디언 메뉴 표시 state
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
@@ -57,20 +89,6 @@ const Paint = () => {
 
     if (undo) {
       undo();
-    }
-  };
-
-  // 이미지 내보내기
-  const exportImageHandler = (resolve, reject) => {
-    try {
-      const canvas = canvasRef.current;
-      if (!canvas) throw Error('Canvas not rendered yet');
-      // const {sageCanvas, width, height} = getCanvasWithViewBox(canvas);
-
-      const canvasSketch = `data:image/svg+xml;base64`;
-      console.log(canvasSketch);
-    } catch (error) {
-      console.log('error');
     }
   };
 
@@ -205,9 +223,9 @@ const Paint = () => {
           </div>
           <div className={styles.control_element}>
             <FontAwesomeIcon
-              className={styles.icon_save}
+              className={styles.icon_share}
               icon={faShareNodes}
-              onClick={() => exportImageHandler()}
+              onClick={() => shareKakao}
             />
           </div>
         </div>
