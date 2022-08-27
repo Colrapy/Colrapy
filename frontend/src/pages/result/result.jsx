@@ -15,33 +15,35 @@ const Result = (props) => {
   const { setsLineImgs } = colorStore((state) => state);
 
   let [mention, setMention] = useState();
+  let [prediction, setPrediction] = useState();
 
   // 서버로부터 결과 받아오기
-  // const getResult = async () => {
-  //   await authApi
-  //     .get('/diary/result/')
-  //     .then((response) => {
-  //       setMention(response.data.mention.mention);
-  //       setsColors([
-  //         { ...response.data.color1 },
-  //         { ...response.data.color2 },
-  //         { ...response.data.color3 },
-  //       ]);
-  //       setsBaseImgs([{ ...response.data.base_images }]);
-  //       setsLineImgs([{ ...response.data.line_images }]);
-  //     })
-  //     .catch((error) => {
-  //       console.log('데이터 로드에 실패했어요. 😢');
-  //     });
-  // };
+  const getResult = async () => {
+    await authApi
+      .get('/diary/result/')
+      .then((response) => {
+        setMention(response.data.mention.mention);
+        setsColors([
+          { ...response.data.color1 },
+          { ...response.data.color2 },
+          { ...response.data.color3 },
+        ]);
+        setsBaseImgs([{ ...response.data.base_images }]);
+        setsLineImgs([{ ...response.data.line_images }]);
+        setPrediction(response.data.prediction.prediction)
+      })
+      .catch((error) => {
+        console.log('데이터 로드에 실패했어요. 😢');
+      });
+  };
 
   // 테스트 data - 서버 죽었을 때
-  const getResult = () => {
-    setMention(data.mention.mention);
-    setsColors([{ ...data.color1 }, { ...data.color2 }, { ...data.color3 }]);
-    setsBaseImgs([{ ...data.base_images }]);
-    setsLineImgs([{ ...data.line_images }]);
-  };
+  // const getResult = () => {
+  //   setMention(data.mention.mention);
+  //   setsColors([{ ...data.color1 }, { ...data.color2 }, { ...data.color3 }]);
+  //   setsBaseImgs([{ ...data.base_images }]);
+  //   setsLineImgs([{ ...data.line_images }]);
+  // };
 
   useEffect(() => {
     getResult();
@@ -80,7 +82,7 @@ const Result = (props) => {
           ></div>
         </div>
         <p className={styles.color_effect}>
-          {color.negative || color.positive}
+          {prediction === 1 ? color.negative : color.positive}
         </p>
       </li>
     );

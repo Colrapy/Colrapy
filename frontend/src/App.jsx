@@ -9,6 +9,7 @@ import ChooseTemplates from './pages/templates/templates';
 import Paint from './pages/paint/paint';
 import Profile from './pages/profile/profile';
 import Colrapy from './pages/colrapy/colrapy';
+import Loading from './pages/loding/loding';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path='/colrapy' element={ <Colrapy/> } />
                 <Route path='/diary' element={ <Diary /> } />
                 <Route path='/profile' element={ <Profile /> } />
+                <Route path='/diary/loading' element={ <Loading /> } />
                 <Route path='/diary/result' element={ <Result /> } />
                 <Route path='/canvas/templates' element={ <ChooseTemplates /> } />
                 <Route path='/canvas/painting' element={ <Paint/> } />
