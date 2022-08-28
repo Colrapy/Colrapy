@@ -18,10 +18,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import { authStore, colorStore } from '../../shared/store';
 import Error from '../error/error';
+import AlertBar from '../../components/alertBar';
 
 const Paint = () => {
   let navigate = useNavigate();
   const userAccess = authStore((state) => state.userAccess);
+  const [alertBar, setAlertBar] = useState(false);
 
   const location = useLocation();
   let imgSrc = location.state.imgSrc;
@@ -41,10 +43,10 @@ const Paint = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    alert('완성하셨나요? 1초 뒤 페이지가 전환됩니다.');
+    setAlertBar(true);
     setTimeout(() => {
       navigate('/canvas/poll');
-    }, 1000);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -200,6 +202,7 @@ const Paint = () => {
 
   return (
     <>
+      { alertBar && <AlertBar alert_text={'완성하셨나요? 곧 페이지가 전환됩니다.'} alert_color={'green'}/> }
       <Header whiteback={true} />
       <div className={styles.content}>
         <div className={styles.controlbar_box}>

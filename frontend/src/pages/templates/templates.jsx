@@ -9,6 +9,7 @@ const ChooseTemplates = () => {
   const navigate = useNavigate();
   const baseImgs = colorStore((state) => state.baseImgs);
   const userAccess = authStore((state) => state.userAccess);
+
   if(userAccess === false) {
     return <Error accessNot={true} />
   }

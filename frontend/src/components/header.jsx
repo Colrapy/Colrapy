@@ -8,7 +8,7 @@ import { authStore } from '../shared/store';
 const Header = ({ whiteback }) => {
   const navigate = useNavigate();
   const userAccess = authStore((state) => state.userAccess);
-
+  
   // 홈으로 가기
   const handleGoHome = () => {
     if (userAccess === false) {
@@ -21,27 +21,26 @@ const Header = ({ whiteback }) => {
   // 프로필로 가기
   const handleGoProfile = () => {
     if (userAccess === false) {
-      alert('회원가입 및 로그인을 해주세요. 😚');
-      setTimeout(() => {
-        navigate('/users/login');
-      }, 1000);
+      navigate('/users/login');
     } else {
       navigate('/profile');
     }
   };
 
   return (
-    <nav className={whiteback ? styles.whiteback : styles.header}>
-      <h1 className={styles.title} onClick={handleGoHome}>
-        Colrapy
-      </h1>
-      <span onClick={handleGoProfile}>
-        <FontAwesomeIcon
-          className={styles.user_icon}
-          icon={faCircleUser}
-        ></FontAwesomeIcon>
-      </span>
-    </nav>
+    <>
+      <nav className={whiteback ? styles.whiteback : styles.header}>
+        <h1 className={styles.title} onClick={handleGoHome}>
+          Colrapy
+        </h1>
+        <span onClick={handleGoProfile}>
+          <FontAwesomeIcon
+            className={styles.user_icon}
+            icon={faCircleUser}
+          ></FontAwesomeIcon>
+        </span>
+      </nav>
+    </>
   );
 };
 

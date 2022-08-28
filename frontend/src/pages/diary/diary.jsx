@@ -8,13 +8,16 @@ import HeaderBack from '../../components/headerBack';
 import { authApi } from '../../shared/axios';
 import { authStore } from '../../shared/store';
 import Error from '../error/error';
+import AlertBar from '../../components/alertBar';
 
 const Diary = (props) => {
   const navigate = useNavigate();
 
-  let [activity, setActivity] = useState('');
-  let [feeling, setFeeling] = useState('');
+  const [activity, setActivity] = useState('');
+  const [feeling, setFeeling] = useState('');
   const userAccess = authStore((state) => state.userAccess);
+  const [alertBar, setAlertBar] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   if(userAccess === false) {
     return <Error accessNot={true} />
@@ -33,13 +36,13 @@ const Diary = (props) => {
   // 유효성 및 길이 체크
   const checkInput = (activity, feeling) => {
     if (activity === '' || feeling === '') {
-      alert('빈칸이 있어요.😥 모든 칸을 채워주세요.');
+      setAlertText('모든 칸을 채워주세요.');
+      setAlertBar(true);
       return false;
     }
     if (feeling.length < 30) {
-      alert(
-        '너무 짧아요.😥 오늘 느꼈던 기분에 대해 좀 더 상세하게 작성해주세요!'
-      );
+      setAlertText('기분에 대해 좀 더 상세하게 작성해주세요.');
+      setAlertBar(true);
       return false;
     }
     return true;
@@ -57,12 +60,13 @@ const Diary = (props) => {
         feeling: feeling
       })
       .then((response) => {
-        alert('기록이 완료되었어요!');
+        console.log('o');
       });
     } catch (error) {
-      alert('오류가 발생했어요. 다시 시도해주세요. 😥');
+      setAlertText('오류가 발생했어요. 다시 시도해주세요.');
+      setAlertBar(true);      
     }
-    navigate('/diary/loding');
+    navigate('/diary/loading');
   }
 
   // 테스트 코드 - 연결 시 삭제 필요
@@ -71,7 +75,6 @@ const Diary = (props) => {
 
   //   // input 검사
   //   if (!checkInput(activity, feeling)) return;
-  //   alert('기록이 완료되었어요!');
   //   setTimeout(() => {
   //     navigate('/diary/result');
   //   }, 1000);
@@ -79,6 +82,7 @@ const Diary = (props) => {
 
   return (
     <>
+      { alertBar && <AlertBar alert_text={alertText} alert_color={'red'} />}
       <HeaderBack />
       <div className={styles.content}>
         <form>

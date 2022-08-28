@@ -7,6 +7,7 @@ import data from '../../data/result.json';
 import { authApi } from '../../shared/axios';
 import { authStore, colorStore, userStore } from '../../shared/store';
 import Error from '../error/error';
+import AlertBar from '../../components/alertBar';
 
 const Result = (props) => {
   const navigate = useNavigate();
@@ -14,11 +15,12 @@ const Result = (props) => {
   const { colors, setsColors } = colorStore((state) => state);
   const { baseImgs, setsBaseImgs } = colorStore((state) => state);
   const { setsLineImgs } = colorStore((state) => state);
+  const [alertBar, setAlertBar] = useState(false);
 
   let [mention, setMention] = useState();
   let [prediction, setPrediction] = useState();
 
-  const userAccess = authStore((state) => state.userAccess);
+  const { userAccess, changeAccess } = authStore((state) => state);
 
   // 서버로부터 결과 받아오기
   const getResult = async () => {
@@ -36,7 +38,7 @@ const Result = (props) => {
         setPrediction(response.data.prediction.prediction)
       })
       .catch((error) => {
-        console.log('데이터 로드에 실패했어요. 😢');
+        setAlertBar(true);
       });
   };
 
@@ -52,7 +54,11 @@ const Result = (props) => {
     getResult();
   });
 
-  if(userAccess === false) {
+  if(localStorage.getItem("token")) {
+    if(!userAccess) {
+      changeAccess();
+    }
+  } else {
     return <Error accessNot={true} />
   }
   
@@ -102,6 +108,7 @@ const Result = (props) => {
 
   return (
     <>
+      { alertBar && <AlertBar alert_text={'데이터 로드에 실패했어요.'}/> }
       <Header whiteback={true} />
       <div className={styles.content}>
         <div className={styles.page_title}>{username}님의 색상 팔레트</div>
