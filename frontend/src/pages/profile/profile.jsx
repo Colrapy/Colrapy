@@ -8,6 +8,7 @@ import Header from '../../components/header';
 import { authApi } from '../../shared/axios';
 import { authStore, userStore } from '../../shared/store';
 import Error from '../error/error';
+import AlertBar from '../../components/alertBar';
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -22,6 +23,10 @@ const Profile = (props) => {
   // 초기값은 서버로부터 전달받은 사용자 정보여야 함
   const [password, setPassword] = useState('');
 
+  const [alertBar, setAlertBar] = useState(false);
+  const [alertText, setAlertText] = useState('');
+  const [alertColor, setAlertColor] = useState('red');
+
   if(userAccess === false) {
     return <Error accessNot={true} />
   }
@@ -32,7 +37,9 @@ const Profile = (props) => {
   const handleChangeAge = (e) => {
     setsAge(e.target.value);
     if (!checkNum.test(e.target.value)) {
-      alert('숫자만 입력해주세요. 😥');
+      setAlertText('숫자로 입력해주세요.');
+      setAlertColor('red');
+      setAlertBar(true);
       setsAge('');
     }
   };
@@ -46,7 +53,9 @@ const Profile = (props) => {
   // input값 체크
   const checkInput = (password) => {
     if (password === '') {
-      alert('비밀번호를 입력해주세요!');
+      setAlertText('비밀번호를 입력해주세요.');
+      setAlertColor('red');
+      setAlertBar(true);
       return false;
     }
     return true;
@@ -62,31 +71,30 @@ const Profile = (props) => {
         password: password,
       })
       .then((response) => {
-        alert('수정이 완료되었어요! 잠시 후 메인으로 이동합니다.');
-        setTimeout(() => {
-          navigate('/colrapy');
-        }, 2000);
+        setAlertText('수정이 완료되었습니다.');
+        setAlertColor('green');
+        setAlertBar(true);
       })
       .catch((error) => {
-        alert('오류가 발생했어요. 새로고침 해주세요.😥');
+        setAlertText('오류가 발생했어요. 새로고침 해주세요.');
+        setAlertColor('red');
+        setAlertBar(true);
       });
   };
 
   // 임시 코드2
   // const updateUserInfo = async () => {
   //   if (!checkInput(password)) return;
+  //   setAlertText('수정이 완료되었습니다.');
+  //   setAlertColor('green');
+  //   setAlertBar(true);
   //   setPassword(password);
-  //   alert('수정이 완료되었어요! 잠시 후 메인으로 이동합니다.');
-  //   setTimeout(() => {
-  //     navigate('/colrapy');
-  //   }, 2000);
   // };
 
   const handleLogout = () => {
     if (userAccess === true) {
       changeAccess();
       localStorage.removeItem('token');
-      alert('로그아웃 되었습니다. 😚');
       setTimeout(() => {
         navigate('/');
       }, 1000);
@@ -95,6 +103,7 @@ const Profile = (props) => {
 
   return (
     <>
+      { alertBar && <AlertBar alert_text={alertText} alert_color={alertColor} /> }
       <Header whiteback={true} />
       <div className={styles.content}>
         <div className={styles.click_list}>

@@ -1,0 +1,17 @@
+@value color_main, color_orange, color_gray from '../common/colors.css';
+@value basic_padding from '../common/set.css';
+
+.alert_box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+
+.alert_content {
+    width: 100%;
+    color: color_main;
+    margin: 0;
+    padding: 0.5rem 2rem;
+}
