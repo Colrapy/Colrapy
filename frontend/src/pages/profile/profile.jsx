@@ -146,7 +146,7 @@ const Profile = (props) => {
               <Button
                 content={'수정 완료'}
                 whiteback={true}
-                _onClick={updateUserInfo}
+                _onClick={updateUserInfo(useremail)}
               />
             </div>
           ) : (

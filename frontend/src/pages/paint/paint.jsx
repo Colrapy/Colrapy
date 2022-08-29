@@ -26,7 +26,7 @@ const Paint = () => {
   const [alertBar, setAlertBar] = useState(false);
 
   const location = useLocation();
-  let imgSrc = location.state.imgSrc;
+  // let imgSrc = location.state.imgSrc;
   const colors = colorStore((state) => state.colors);
   const lineImgs = colorStore((state) => state.lineImgs);
 
@@ -99,106 +99,110 @@ const Paint = () => {
 
   // 마우스가 눌렸을때만 커서의 움직임 그리기
   // 마우스가 클릭되었는지 안되었는지를 저장하는 state 생성
-  const [isPainting, setIsPainting] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // const [isPainting, setIsPainting] = useState(false);
+  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // 좌표를 얻는 함수
-  const getCoordinates = (e) => {
-    if (!canvas_ref.current) {
-      return;
-    }
-    const canvas = canvas_ref.current;
+  // const getCoordinates = (e) => {
+  //   if (!canvas_ref.current) {
+  //     return;
+  //   }
+  //   const canvas = canvas_ref.current;
 
-    return {
-      // x: e.clientX - e.target.offsetLeft,
-      // y: e.clientY - e.target.offsetTop
-      x: e.pageX - canvas.offsetLeft,
-      y: e.pageY - canvas.offsetTop,
-    };
-  };
+  //   return {
+  //     // x: e.clientX - e.target.offsetLeft,
+  //     // y: e.clientY - e.target.offsetTop
+  //     x: e.pageX - canvas.offsetLeft,
+  //     y: e.pageY - canvas.offsetTop,
+  //   };
+  // };
 
   // canvas에 선 그리기
-  const drawLine = (originalPosition, newMousePosition) => {
-    if (!canvas_ref.current) {
-      return;
-    }
-    const canvas = canvas_ref.current;
-    const context = canvas.getContext('2d');
+  // const drawLine = (originalPosition, newMousePosition) => {
+  //   if (!canvas_ref.current) {
+  //     return;
+  //   }
+  //   const canvas = canvas_ref.current;
+  //   const context = canvas.getContext('2d');
 
-    if (context) {
-      context.strokeStyle = color; // 선 색깔
-      context.lineJoin = 'round'; // 선 끄트머리
-      context.lineWidth = brushSize; //선 굵기
+  //   if (context) {
+  //     context.strokeStyle = color; // 선 색깔
+  //     context.lineJoin = 'round'; // 선 끄트머리
+  //     context.lineWidth = brushSize; //선 굵기
 
-      context.beginPath();
-      context.moveTo(originalPosition.x, originalPosition.y);
-      context.lineTo(newMousePosition.x, newMousePosition.y);
-      context.closePath();
-      context.stroke();
-    }
-  };
+  //     context.beginPath();
+  //     context.moveTo(originalPosition.x, originalPosition.y);
+  //     context.lineTo(newMousePosition.x, newMousePosition.y);
+  //     context.closePath();
+  //     context.stroke();
+  //   }
+  // };
 
   // paint 시작
-  const startPaint = useCallback((e) => {
-    const coordinates = getCoordinates(e);
-    if (coordinates) {
-      setIsPainting(true);
-      setMousePosition(coordinates);
-    }
-  }, []);
+  // const startPaint = useCallback((e) => {
+  //   const coordinates = getCoordinates(e);
+  //   if (coordinates) {
+  //     setIsPainting(true);
+  //     setMousePosition(coordinates);
+  //   }
+  // }, []);
 
-  const paint = useCallback(
-    (e) => {
-      e.preventDefault(); // 드래그 방지
-      e.stopPropagation(); // 드래그 방지
+  // const paint = useCallback(
+  //   (e) => {
+  //     e.preventDefault(); // 드래그 방지
+  //     e.stopPropagation(); // 드래그 방지
 
-      if (isPainting) {
-        const newMousePosition = getCoordinates(e);
-        if (mousePosition && newMousePosition) {
-          drawLine(mousePosition, newMousePosition);
-          setMousePosition(newMousePosition);
-        }
-      }
-    },
-    [isPainting, mousePosition]
-  );
+  //     if (isPainting) {
+  //       const newMousePosition = getCoordinates(e);
+  //       if (mousePosition && newMousePosition) {
+  //         drawLine(mousePosition, newMousePosition);
+  //         setMousePosition(newMousePosition);
+  //       }
+  //     }
+  //   },
+  //   [isPainting, mousePosition]
+  // );
 
-  const exitPaint = useCallback(() => {
-    setIsPainting(false);
-  }, []);
+  // const exitPaint = useCallback(() => {
+  //   setIsPainting(false);
+  // }, []);
 
-  useEffect(() => {
-    if (!canvas_ref.current) {
-      return;
-    }
-    const canvas = canvas_ref.current;
+  // useEffect(() => {
+  //   if (!canvas_ref.current) {
+  //     return;
+  //   }
+  //   const canvas = canvas_ref.current;
 
-    canvas.addEventListener('mousedown', startPaint);
-    canvas.addEventListener('mousemove', paint);
-    canvas.addEventListener('mouseup', exitPaint);
-    canvas.addEventListener('mouseleave', exitPaint);
+  //   canvas.addEventListener('mousedown', startPaint);
+  //   canvas.addEventListener('mousemove', paint);
+  //   canvas.addEventListener('mouseup', exitPaint);
+  //   canvas.addEventListener('mouseleave', exitPaint);
 
-    return () => {
-      // Unmount 시 이벤트 리스너 제거
-      canvas.removeEventListener('mousedown', startPaint);
-      canvas.removeEventListener('mousemove', paint);
-      canvas.removeEventListener('mouseup', exitPaint);
-      canvas.removeEventListener('mouseleave', exitPaint);
-    };
-  }, [startPaint, paint, exitPaint]);
+  //   return () => {
+  //     // Unmount 시 이벤트 리스너 제거
+  //     canvas.removeEventListener('mousedown', startPaint);
+  //     canvas.removeEventListener('mousemove', paint);
+  //     canvas.removeEventListener('mouseup', exitPaint);
+  //     canvas.removeEventListener('mouseleave', exitPaint);
+  //   };
+  // }, [startPaint, paint, exitPaint]);
 
-  if(userAccess === false) {
-    return <Error accessNot={true} />
-  }
+  // if(userAccess === false) {
+  //   return <Error accessNot={true} />
+  // }
   
   // 공유하기 기능 추가
-  // useEffect(() => { 
-  //   const script:
-  // })
+  useEffect(() => { 
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => document.body.removeChild(script);
+  });
 
 
   const nowColor = { color: color };
-  const import_background = lineImgs[imgSrc];
+  // const import_background = lineImgs[imgSrc];
 
   return (
     <>
@@ -300,7 +304,7 @@ const Paint = () => {
             height="350px"
             strokeWidth={brushSize}
             strokeColor={color}
-            backgroundImage={import_background}
+            // backgroundImage={import_background}
             exportWithBackgroundImage={true}
           />
           {/* <Canvas /> */}
