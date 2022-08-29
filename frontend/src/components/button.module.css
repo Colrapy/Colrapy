@@ -1,9 +1,5 @@
 @value color_orange, color_main from '../common/colors.css';
-@value response_width, response_padding, basic_padding, button_padding from '../common/set.css';
-
-.login_box {
-  height: 90vh;
-}
+@value response_max_width, response_max_height, reponse_button_font, basic_padding, button_padding from '../common/set.css';
 
 .button_box {
   padding: button_padding;
@@ -29,8 +25,16 @@ button {
   background-color: color_orange;
 }
 
-@media screen and (max-width: response_width) {
+@media screen and (max-width: response_max_width) {
   button {
-    font-size: 1.2rem;
+    font-size: reponse_button_font;
+    height: 3rem;
+  }
+}
+
+@media screen and (max-height: response_max_height) {
+  button {
+    font-size: reponse_button_font;
+    height: 3rem;
   }
 }

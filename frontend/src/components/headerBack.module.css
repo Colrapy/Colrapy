@@ -1,8 +1,9 @@
 @value color_main, color_gray, color_black from '../common/colors.css';
-@value header_padding, response_width, response_padding from '../common/set.css';
+@value header_height, header_padding, response_max_width, response_max_height, header_font from '../common/set.css';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 .header {
+  height: header_height;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -14,6 +15,7 @@
 }
 
 .transparent {
+  height: header_height;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -37,4 +39,20 @@
 
 .back_icon:hover, .back_iconWhite:hover {
   cursor: pointer;
+}
+
+@media screen and (max-width: response_max_width) {
+  .back_iconWhite, .back_icon {
+    font-size: header_font;
+  }
+}
+
+@media screen and (max-height: response_max_height) {
+  .header, .transparent {
+    padding-top: 2.5rem;
+  }
+
+  .back_iconWhite, .back_icon {
+    font-size: header_font;
+  }
 }

@@ -179,7 +179,7 @@ const Paint = () => {
     canvas.addEventListener('mouseleave', exitPaint);
 
     return () => {
-      // Unmount 시 이벤트 리스터 제거
+      // Unmount 시 이벤트 리스너 제거
       canvas.removeEventListener('mousedown', startPaint);
       canvas.removeEventListener('mousemove', paint);
       canvas.removeEventListener('mouseup', exitPaint);

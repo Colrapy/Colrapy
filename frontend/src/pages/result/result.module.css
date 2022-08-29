@@ -125,3 +125,26 @@
   padding: 0;
   width: 100%;
 }
+
+/* 아이폰 SE 사이즈 고려 */
+@media screen and (max-width: 350px) {
+  .pale_box {
+    height: 300px;
+  }
+
+  .palette {
+    font-size: 0.75rem;
+  }
+
+  .page_title, .box_title {
+    font-size: 1.3rem;
+  }
+
+  .mention_box, .box_info {
+    font-size: 1.1rem;
+  }
+
+  .color_effect, .hashtag {
+    font-size: 1rem;
+  }
+}

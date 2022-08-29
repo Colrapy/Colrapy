@@ -2,7 +2,7 @@
 @value color_gray, color_black, color_main from '../../common/colors.css';
 
 .content {
-  height: 90%;
+  height: content_height;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -21,8 +21,3 @@
   margin: auto 0;
   padding: 1rem;
 }
-
-/* .find_box {
-    padding: basic_padding;
-    font-size: 1.2rem;
-} */

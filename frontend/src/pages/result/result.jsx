@@ -27,7 +27,7 @@ const Result = (props) => {
     await authApi
       .get('/diary/result/')
       .then((response) => {
-        setMention(response.data.mention.mention);
+        setMention(response.data.mention);
         setsColors([
           { ...response.data.color1 },
           { ...response.data.color2 },
@@ -44,7 +44,7 @@ const Result = (props) => {
 
   // 테스트 data - 서버 죽었을 때
   // const getResult = () => {
-  //   setMention(data.mention.mention);
+  //   setMention(data.mention);
   //   setsColors([{ ...data.color1 }, { ...data.color2 }, { ...data.color3 }]);
   //   setsBaseImgs([{ ...data.base_images }]);
   //   setsLineImgs([{ ...data.line_images }]);
@@ -52,7 +52,7 @@ const Result = (props) => {
 
   useEffect(() => {
     getResult();
-  });
+  }, baseImgs);
 
   if(localStorage.getItem("token")) {
     if(!userAccess) {

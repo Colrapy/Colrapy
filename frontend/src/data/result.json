@@ -1,8 +1,6 @@
 {
-  "mention": {
-    "id": 1,
-    "mention": "님, 오늘은 우울한 하루였던 것으로 보여요. 우울한 감정을 완화시켜줄 색과 템플릿을 추천해드릴게요."
-  },
+  "mention": "님, 오늘은 우울한 하루였던 것으로 보여요. 우울한 감정을 완화시켜줄 색과 템플릿을 추천해드릴게요."
+  ,
   "color1": {
     "color": "빨간색",
     "code": "#B92021",
@@ -19,13 +17,13 @@
     "positive": "노란색은 불안하고 우울할 때 긴장을 완화시켜주고 긍정적인 생각을 주는 색이에요. 강박적인 생각과 감정, 습관으로부터 초연해지도록 도움을 준답니다. "
   },
   "base_images": {
-    "base_image1": "/images/template_image/b_red1.jpg",
-    "base_image2": "/images/template_image/b_orange2.jpg",
-    "base_image3": "/images/template_image/b_yellow1.png"
+    "base_image1": "/media/canvas/base/red1.jpg",
+    "base_image2": "/media/canvas/base/orange2.jpg",
+    "base_image3": "/media/canvas/base/yellow1.png"
   },
   "line_images": {
-    "line_image1": "/images/template_image/l_red1.png",
-    "line_image2": "/images/template_image/l_orange2.png",
-    "line_image3": "/images/template_image/l_yellow1.png"
+    "line_image1": "/media/canvas/line/red1.jpg",
+    "line_image2": "/media/canvas/line/orange2.jpg",
+    "line_image3": "/media/canvas/line/yellow1.jpg"
   }
 }
