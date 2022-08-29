@@ -26,7 +26,7 @@ const Paint = () => {
   const [alertBar, setAlertBar] = useState(false);
 
   const location = useLocation();
-  // let imgSrc = location.state.imgSrc;
+  let imgSrc = location.state.imgSrc;
   const colors = colorStore((state) => state.colors);
   const lineImgs = colorStore((state) => state.lineImgs);
 
@@ -202,7 +202,7 @@ const Paint = () => {
 
 
   const nowColor = { color: color };
-  // const import_background = lineImgs[imgSrc];
+  const import_background = lineImgs[imgSrc];
 
   return (
     <>
@@ -304,7 +304,7 @@ const Paint = () => {
             height="350px"
             strokeWidth={brushSize}
             strokeColor={color}
-            // backgroundImage={import_background}
+            backgroundImage={import_background}
             exportWithBackgroundImage={true}
           />
           {/* <Canvas /> */}
