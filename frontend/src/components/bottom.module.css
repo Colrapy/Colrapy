@@ -1,15 +1,16 @@
-@value box_padding from '../common/set.css';
+@value bottom_height from '../common/set.css';
 @value color_main, color_gray from '../common/colors.css';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 .bottom {
+  height: bottom_height;
   margin: 0 auto;
   padding-bottom: 1.5rem;
 }
 
 .copyrights {
   font-size: 0.7rem;
-  padding: 0;
+  margin: 0;
   font-family: 'Noto Serif', serif;
   color: color_main;
 }

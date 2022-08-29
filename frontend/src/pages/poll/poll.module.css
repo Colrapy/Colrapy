@@ -1,7 +1,8 @@
-@value basic_padding from '../../common/set.css';
+@value content_height, basic_padding from '../../common/set.css';
 @value color_white, color_gray, color_main, color_main_soft from '../../common/colors.css';
 
 .content {
+  height: content_height;
   padding: basic_padding;
 }
 

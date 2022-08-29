@@ -17,7 +17,7 @@ const Error = ({ accessNot }) => {
     <>
       <HeaderBack transparent={true} />
       <div className={styles.content}>
-        <p className={styles.errorment}>404 NOT FOUND</p>
+        <p className={styles.errorment}>Not Found</p>
       </div>
     </>
   )

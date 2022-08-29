@@ -41,45 +41,45 @@ const Login = (props) => {
   };
 
   // login 버튼 클릭 시 api호출
-  // const login = async (e) => {
-  //   e.preventDefault();
-
-  //   // email, password 칸 검사
-  //   if (!checkInputValue(userId, password)) return;
-
-  //   try {
-  //     await api
-  //       .post('/users/login/', {
-  //         email: userId,
-  //         password: password,
-  //       })
-  //         .then((response) => {
-  //           localStorage.setItem('token', response.data.token);
-  //           if (userAccess === false) {
-  //             changeAccess();
-  //             setTimeout(() => {
-  //               navigate('/colrapy');
-  //             }, 1000);
-  //           }
-  //         });
-  //   } catch (error) {
-  //     setAlertText('로그인에 실패했어요.')
-  //     setAlertBar(true);
-  //   }
-  // };
-
-  // 테스트용 코드
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
+
     // email, password 칸 검사
     if (!checkInputValue(userId, password)) return;
-    setUserId(userId);
-    localStorage.setItem('token', response.data.token);
-    if (userAccess === false) {
-      changeAccess();
-      navigate('/colrapy');
+
+    try {
+      await api
+        .post('/users/login/', {
+          email: userId,
+          password: password,
+        })
+          .then((response) => {
+            localStorage.setItem('token', response.data.token);
+            if (userAccess === false) {
+              changeAccess();
+              setTimeout(() => {
+                navigate('/colrapy');
+              }, 1000);
+            }
+          });
+    } catch (error) {
+      setAlertText('로그인에 실패했어요.')
+      setAlertBar(true);
     }
   };
+
+  // 테스트용 코드
+  // const login = (e) => {
+  //   e.preventDefault();
+  //   // email, password 칸 검사
+  //   if (!checkInputValue(userId, password)) return;
+  //   setUserId(userId);
+  //   localStorage.setItem('token', response.data.token);
+  //   if (userAccess === false) {
+  //     changeAccess();
+  //     navigate('/colrapy');
+  //   }
+  // };
 
   /// 카카오 로그인 버튼 클릭 시 api호출 - 서버 연결 시 주석 풀기
   const kakaoLogin = () => {

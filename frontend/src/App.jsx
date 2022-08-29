@@ -22,7 +22,7 @@ function App() {
                 <Route path='/users/login' element={ <Login/> } />
                 <Route path='/colrapy' element={ <Colrapy/> } />
                 <Route path='/diary' element={ <Diary /> } />
-                <Route path='/profile' element={ <Profile /> } />
+                <Route path='/users/profile' element={ <Profile /> } />
                 <Route path='/diary/loading' element={ <Loading /> } />
                 <Route path='/diary/result' element={ <Result /> } />
                 <Route path='/canvas/templates' element={ <ChooseTemplates /> } />

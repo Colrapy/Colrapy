@@ -1,28 +1,26 @@
 @value color_main, color_orange, color_gray from '../common/colors.css';
-@value header_padding, response_width, response_padding from '../common/set.css';
+@value header_height, header_padding, response_max_width, response_max_height, header_font from '../common/set.css';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 .header {
+  height: header_height;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  /* max-width: 420px;
-    min-width: 280px; */
   margin: 0 auto;
   padding: header_padding;
   color: color_main;
 }
 
 .whiteback {
+  height: header_height;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  /* max-width: 420px;
-    min-width: 280px; */
   margin: 0 auto;
   padding: header_padding;
   color: color_orange;
@@ -44,4 +42,19 @@
 .title:hover,
 .user_icon:hover {
   cursor: pointer;
+}
+
+@media screen and (max-width: response_max_width) {
+  .title, .user_icon {
+    font-size: header_font;
+  }
+}
+
+@media screen and (max-height: response_max_height) {
+  .header, .whiteback {
+    padding-top: 2.5rem;
+  }
+  .title, .user_icon {
+    font-size: header_font;
+  }
 }

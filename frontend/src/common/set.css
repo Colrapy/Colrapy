@@ -1,15 +1,30 @@
 /* padding */
 @value basic_padding: 2rem;
-@value header_padding: 4rem 2rem 0rem 2rem;
+@value header_padding: 3.5rem 2rem 0rem 2rem;
 @value flexwrap_padding: 1rem 2rem;
 @value content_padding: 1rem 2rem;
 @value button_padding: 0.3rem 0rem;
 @value title_padding: 2rem 0rem 0rem 0rem;
 
 /* 반응형 */
-/* 가로사이즈 */
-@value response_width: 1024px;
-@value response_padding: 0.7rem 1rem;
+/* 헤더 및 모바일 가로 사이즈 고려 */
+@value response_max_width: 400px;
+@value response_max_height: 600px;
+@value pad_min_height: 1000px;
 
-/* 화면 사이즈 */
-@value content_height: 80%;
+/* 반응형 font 사이즈 */
+@value header_font: 1.5rem;
+@value reponse_font_size: 1.1rem;
+@value reponse_button_font: 1.1rem;
+
+/* 반응형 패딩 사이즈 */
+
+
+/* 화면 사이즈 - bottom 있을 때*/
+@value content_b_height: 85%;
+@value bottom_b_height: 5%;
+
+
+/* 화면 사이즈 - bottom 없을 때 */
+@value header_height: 10%;
+@value content_height: 90%;

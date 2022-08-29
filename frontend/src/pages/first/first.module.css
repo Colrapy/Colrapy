@@ -1,8 +1,8 @@
 @value color_main from '../../common/colors.css';
-@value content_height, response_width, response_padding, basic_padding from '../../common/set.css';
+@value content_b_height, response_max_width, response_max_height, reponse_font_size, basic_padding from '../../common/set.css';
 
 .content {
-  height: content_height;
+  height: content_b_height;
   color: color_main;
   display: flex;
   flex-direction: column;
@@ -19,8 +19,14 @@
   white-space: pre-line;
 }
 
-/* @media screen and (max-width: response_width) {
-    p {
-        font-size: 1.6rem;
-    }
-} */
+@media screen and (max-width: response_max_width) {
+  .display_content {
+    font-size: reponse_font_size;
+  }
+}
+
+@media screen and (max-height: response_max_height) {
+  .display_content {
+    font-size: reponse_font_size;
+  }
+}

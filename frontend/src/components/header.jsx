@@ -23,7 +23,7 @@ const Header = ({ whiteback }) => {
     if (userAccess === false) {
       navigate('/users/login');
     } else {
-      navigate('/profile');
+      navigate('/users/profile');
     }
   };
 
@@ -33,12 +33,12 @@ const Header = ({ whiteback }) => {
         <h1 className={styles.title} onClick={handleGoHome}>
           Colrapy
         </h1>
-        <span onClick={handleGoProfile}>
+        <h1 onClick={handleGoProfile}>
           <FontAwesomeIcon
             className={styles.user_icon}
             icon={faCircleUser}
-          ></FontAwesomeIcon>
-        </span>
+          />
+        </h1>
       </nav>
     </>
   );

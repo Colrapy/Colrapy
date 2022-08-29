@@ -65,7 +65,7 @@ const Profile = (props) => {
   const updateUserInfo = async (useremail) => {
     if (!checkInput(password)) return;
     await authApi
-      .put(`/profile/${useremail}`, {
+      .put(`/users/profile/${useremail}`, {
         age: userage,
         username: username,
         password: password,
@@ -95,9 +95,7 @@ const Profile = (props) => {
     if (userAccess === true) {
       changeAccess();
       localStorage.removeItem('token');
-      setTimeout(() => {
-        navigate('/');
-      }, 1000);
+      navigate('/');
     }
   };
 
