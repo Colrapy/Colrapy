@@ -186,10 +186,6 @@ const Paint = () => {
   //     canvas.removeEventListener('mouseleave', exitPaint);
   //   };
   // }, [startPaint, paint, exitPaint]);
-
-  // if(userAccess === false) {
-  //   return <Error accessNot={true} />
-  // }
   
   // 공유하기 기능 추가
   useEffect(() => { 
@@ -200,6 +196,9 @@ const Paint = () => {
     return () => document.body.removeChild(script);
   });
 
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
 
   const nowColor = { color: color };
   const import_background = lineImgs[imgSrc];
