@@ -14,7 +14,8 @@ const KakaoButton = (props) => {
           }
     
           kakao.Share.sendScrap({
-            requestUrl: 'http://127.0.0.1:3000'
+            requestUrl: 'http://127.0.0.1:3000',
+            templateId: 82164,
           });
         }
       }
