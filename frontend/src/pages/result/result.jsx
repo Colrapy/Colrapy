@@ -8,6 +8,7 @@ import { authApi } from '../../shared/axios';
 import { authStore, colorStore, userStore } from '../../shared/store';
 import Error from '../error/error';
 import AlertBar from '../../components/alertBar';
+import KakaoButton from './kakao/kakaobutton';
 
 const Result = (props) => {
   const navigate = useNavigate();
@@ -54,17 +55,30 @@ const Result = (props) => {
     getResult();
   }, baseImgs);
 
-  if(localStorage.getItem("token")) {
-    if(!userAccess) {
-      changeAccess();
+  // 카카오톡 공유하기 include
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = 'https://developers.kakao.com/sdk/js/kakao.js'
+    script.async = true
+
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
     }
-  } else {
-    return <Error accessNot={true} />
-  }
+  }, [])
+
+  // if(localStorage.getItem("token")) {
+  //   if(!userAccess) {
+  //     changeAccess();
+  //   }
+  // } else {
+  //   return <Error accessNot={true} />
+  // }
   
   const handleClick = (e) => {
     e.preventDefault();
-    navigate('/canvas/templates');
+    navigate('/canvas/');
   };
 
   // 팔레트 UI
@@ -136,6 +150,7 @@ const Result = (props) => {
           whiteback={true}
           _onClick={handleClick}
         />
+        <KakaoButton />
       </div>
     </>
   );

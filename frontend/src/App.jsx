@@ -25,7 +25,7 @@ function App() {
                 <Route path='/users/profile' element={ <Profile /> } />
                 <Route path='/diary/loading' element={ <Loading /> } />
                 <Route path='/diary/result' element={ <Result /> } />
-                <Route path='/canvas/templates' element={ <ChooseTemplates /> } />
+                <Route path='/canvas/' element={ <ChooseTemplates /> } />
                 <Route path='/canvas/painting' element={ <Paint/> } />
                 <Route path='/canvas/poll' element={ <Poll /> } />
                 <Route path='/*' element={ <Error /> } />

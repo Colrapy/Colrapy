@@ -14,7 +14,7 @@ const Poll = () => {
   }
 
   const handleGoTemplates = () => {
-    navigate('/canvas/templates');
+    navigate('/canvas/');
   };
 
   const handleGoMain = () => {
