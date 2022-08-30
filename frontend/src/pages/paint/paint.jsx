@@ -26,7 +26,7 @@ const Paint = () => {
   const [alertBar, setAlertBar] = useState(false);
 
   const location = useLocation();
-  let imgSrc = location.state.imgSrc;
+  // let imgSrc = location.state.imgSrc;
   const colors = colorStore((state) => state.colors);
   const lineImgs = colorStore((state) => state.lineImgs);
 
@@ -57,29 +57,6 @@ const Paint = () => {
     return () => document.body.removeChild(script);
   }, []);
 
-  const shareKakao = () => {
-    // kakao sdk script 부른 후 window.kakao로 접근
-    if (window.Kakao) {
-      const kakao = window.Kakao;
-
-      if(!kakao.isInitialized()) {
-        kakao.init('자바스크립트 키');
-      }
-
-      kakao.Link.sendDefault({
-        objectType: "feed",
-        content: {
-          title: "colrapy: 결과물",
-          description: "AI 컬러테라피 결과물",
-          imageUrl: "이미지 주소",
-          link: {
-            mobileWebUrl: "공유할 url 주소",
-            webUrl: "공유할 url 주소"
-          }
-        }
-      });
-    }
-  }
 
   const [showPalette, setshowPalette] = useState(false); // 아코디언 메뉴 표시 state
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
@@ -187,21 +164,12 @@ const Paint = () => {
   //   };
   // }, [startPaint, paint, exitPaint]);
   
-  // 공유하기 기능 추가
-  useEffect(() => { 
-    const script = document.createElement("script");
-    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => document.body.removeChild(script);
-  });
-
-  if(userAccess === false) {
-    return <Error accessNot={true} />
-  }
+  // if(userAccess === false) {
+  //   return <Error accessNot={true} />
+  // }
 
   const nowColor = { color: color };
-  const import_background = lineImgs[imgSrc];
+  // const import_background = lineImgs[imgSrc];
 
   return (
     <>
@@ -235,10 +203,10 @@ const Paint = () => {
             />
           </div>
           <div className={styles.control_element}>
+            {/* <KakaoButton /> */}
             <FontAwesomeIcon
               className={styles.icon_share}
               icon={faShareNodes}
-              onClick={() => shareKakao}
             />
           </div>
         </div>
@@ -303,7 +271,7 @@ const Paint = () => {
             height="350px"
             strokeWidth={brushSize}
             strokeColor={color}
-            backgroundImage={import_background}
+            // backgroundImage={import_background}
             exportWithBackgroundImage={true}
           />
           {/* <Canvas /> */}

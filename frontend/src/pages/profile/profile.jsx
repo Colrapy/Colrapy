@@ -27,10 +27,9 @@ const Profile = (props) => {
   const [alertText, setAlertText] = useState('');
   const [alertColor, setAlertColor] = useState('red');
 
-  if(userAccess === false) {
-    return <Error accessNot={true} />
-  }
-
+  // if(userAccess === false) {
+  //   return <Error accessNot={true} />
+  // }
 
   // 입력 값 검사 & state 변경시 발생하는 함수
   const checkNum = /^[0-9]+$/;
@@ -62,10 +61,10 @@ const Profile = (props) => {
   };
 
   // 프로필 수정 시
-  const updateUserInfo = async (useremail) => {
+  const updateUserInfo = async () => {
     if (!checkInput(password)) return;
     await authApi
-      .put(`/users/profile/${useremail}`, {
+      .put('/users/profile/', {
         age: userage,
         username: username,
         password: password,
@@ -146,7 +145,7 @@ const Profile = (props) => {
               <Button
                 content={'수정 완료'}
                 whiteback={true}
-                _onClick={updateUserInfo(useremail)}
+                _onClick={updateUserInfo}
               />
             </div>
           ) : (

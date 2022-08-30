@@ -10,9 +10,9 @@ const ChooseTemplates = () => {
   const baseImgs = colorStore((state) => state.baseImgs);
   const userAccess = authStore((state) => state.userAccess);
 
-  if(userAccess === false) {
-    return <Error accessNot={true} />
-  }
+  // if(userAccess === false) {
+  //   return <Error accessNot={true} />
+  // }
 
   // 특정 템플릿 클릭 시 라우팅과 함께 클릭한 템플릿 주소 state로 넘기기
   const handleRouting = (e) => {
