@@ -24,32 +24,32 @@ const Result = (props) => {
   const { userAccess, changeAccess } = authStore((state) => state);
 
   // 서버로부터 결과 받아오기
-  const getResult = async () => {
-    await authApi
-      .get('/diary/result/')
-      .then((response) => {
-        setMention(response.data.mention);
-        setsColors([
-          { ...response.data.color1 },
-          { ...response.data.color2 },
-          { ...response.data.color3 },
-        ]);
-        setsBaseImgs([{ ...response.data.base_images }]);
-        setsLineImgs([{ ...response.data.line_images }]);
-        setPrediction(response.data.prediction.prediction)
-      })
-      .catch((error) => {
-        setAlertBar(true);
-      });
-  };
+  // const getResult = async () => {
+  //   await authApi
+  //     .get('/diary/result/')
+  //     .then((response) => {
+  //       setMention(response.data.mention);
+  //       setsColors([
+  //         { ...response.data.color1 },
+  //         { ...response.data.color2 },
+  //         { ...response.data.color3 },
+  //       ]);
+  //       setsBaseImgs([{ ...response.data.base_images }]);
+  //       setsLineImgs([{ ...response.data.line_images }]);
+  //       setPrediction(response.data.prediction.prediction)
+  //     })
+  //     .catch((error) => {
+  //       setAlertBar(true);
+  //     });
+  // };
 
   // 테스트 data - 서버 죽었을 때
-  // const getResult = () => {
-  //   setMention(data.mention);
-  //   setsColors([{ ...data.color1 }, { ...data.color2 }, { ...data.color3 }]);
-  //   setsBaseImgs([{ ...data.base_images }]);
-  //   setsLineImgs([{ ...data.line_images }]);
-  // };
+  const getResult = () => {
+    setMention(data.mention);
+    setsColors([{ ...data.color1 }, { ...data.color2 }, { ...data.color3 }]);
+    setsBaseImgs([{ ...data.base_images }]);
+    setsLineImgs([{ ...data.line_images }]);
+  };
 
   useEffect(() => {
     getResult();
