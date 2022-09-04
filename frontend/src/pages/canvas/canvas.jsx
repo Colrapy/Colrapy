@@ -16,3 +16,10 @@ const Canvas = (props) => {
 };
 
 export default Canvas;
+
+
+/*
+  - offsetWidth: HTML 요소의 가로 크기
+  - offsetHeight: HTML 요소의 세로 크기 
+
+*/
