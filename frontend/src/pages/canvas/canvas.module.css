@@ -1,15 +1,22 @@
-@value basic_padding from '../../common/set.css';
-@value color_white, color_gray, color_main, color_main_soft from '../../common/colors.css';
+@value content_height, basic_padding from '../../common/set.css';
+@value color_white, color_gray, color_main, color_orange from '../../common/colors.css';
 
-.paint_box {
+.canvasBox {
+  height: 350px;
+  width: 350px;
+  border: 1px solid orange;
+}
+
+.content {
+  height: content_height;
   padding: basic_padding;
   width: 100%;
+  background-color: color_main;
+  display: flex;
+  flex-direction: column;
 }
 
-.palette {
-  width: 100%;
-}
-
+/* tool 상자 */
 .controlbar_box {
   display: flex;
   flex-direction: row;
@@ -17,9 +24,10 @@
 }
 
 .control_element {
-  padding: basic_padding;
+  padding: calc(basic_padding/2);
   cursor: pointer;
   transition: transform 100ms ease-in;
+  color: color_orange;
 }
 
 .control_element:hover {
@@ -27,17 +35,98 @@
   transform: scale(1.2);
 }
 
+/* 아코디언 바 - 브러쉬, 색상 선택란 */
+.controlbar_accordion {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* width: 100%; */
+  border-top: 1px dashed color_gray;
+  padding: calc(basic_padding/2);
+}
+
+.recommand_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.reco_color {
+  cursor: pointer;
+  list-style: none;
+  width: 80px;
+  height: 100%;
+  /* border-radius: 2rem; */
+}
+
+/* Responsive */
+.responsive .react-colorful {
+  width: auto;
+}
+
+/* 브러쉬 도구 */
+.brush_wrap {
+  width: 100%;
+}
+
+.brush_box {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.brush_size {
+  display: inline;
+  padding: calc((basic_padding) / 2);
+  border-radius: 2rem;
+  margin: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.brush_size:hover {
+  border: 1px dotted color_gray;
+}
+
 .canvas_container {
   width: 100%;
+  margin: 2rem 0;
+}
+
+.canvasElement {
+  margin: 0 auto;
+  border: 1px solid orange;
 }
 
 .paint_img {
   width: 100%;
-  height: 500px;
+  height: auto;
   border: 1px solid color_gray;
   border-radius: 10px;
   margin-bottom: 10px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+/* 아이폰 SE 사이즈 고려 */
+@media screen and (max-width: 400px) {
+  .brush_size {
+    margin: 0;
+  }
+
+  .content {
+    height: 150%;
+  }
+}
+
+@media screen and (min-height: 600px) {
+  .content {
+    height: 150%;
+  }
+}
+
+@media screen and (min-height: 800px) {
+  .content {
+    height: 120%;
+  }
 }

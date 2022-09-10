@@ -62,8 +62,6 @@ const Paint = () => {
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
   const [brushSize, setBrushSize] = useState(1); // 브러쉬 사이즈
-  const canvas_ref = useRef(null); // 컨버스의 DOM값 가져오기
-
   // 뒤로가기
   const canvasRef = React.createRef();
   const undoHandler = () => {
@@ -183,7 +181,12 @@ const Paint = () => {
             exportWithBackgroundImage={true}
             className={styles.canvasElement}
           />
-          {/* <Canvas /> */}
+          {/* <Canvas 
+            ref={canvasRef}
+            strokeWidth={brushSize}
+            strokeColor={color}
+            className={styles.canvasElement}
+          /> */}
         </div>
         <Button
           content={'완성했어요!'}
