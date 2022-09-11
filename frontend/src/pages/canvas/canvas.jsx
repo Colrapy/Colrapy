@@ -51,8 +51,23 @@ const Canvas = () => {
   const [color, setColor] = useState('#000000'); // 색상 변경 state
   const [brushSize, setBrushSize] = useState(1); // 브러쉬 사이즈
   
+  // canv
+
   // 1. canvas element 참조
   const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    const outlineImage = new Image();
+    // const backgroundImage = new Image();
+    outlineImage.src = '/media/canvas/line/yellow1.jpg';
+    // backgroundImage.src = 'images/background.png';
+    outlineImage.onload = () => {
+      context?.drawImage(outlineImage, 0, 0, canvas.width, canvas.height);
+    }
+  });
 
   const nowColor = { color: color };
   // const import_background = lineImgs[imgSrc];
@@ -165,6 +180,8 @@ const Canvas = () => {
           /> */}
           <canvas 
             ref={canvasRef}
+            width='500'
+            height='500'
             // strokeWidth={brushSize}
             // strokeColor={color}
             className={styles.canvasElement}
