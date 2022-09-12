@@ -26,7 +26,7 @@ const Paint = () => {
   const [alertBar, setAlertBar] = useState(false);
 
   const location = useLocation();
-  let imgSrc = location.state.imgSrc;
+  // let imgSrc = location.state.imgSrc;
   const colors = colorStore((state) => state.colors);
   const lineImgs = colorStore((state) => state.lineImgs);
 
@@ -57,16 +57,18 @@ const Paint = () => {
     return () => document.body.removeChild(script);
   }, []);
 
-
+  const [painting, setPainting] = useState(false);
   const [showPalette, setshowPalette] = useState(false); // 아코디언 메뉴 표시 state
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
-  const [brushSize, setBrushSize] = useState(1); // 브러쉬 사이즈
+  const [brushSize, setBrushSize] = useState(3); // 브러쉬 사이즈
+
+  const canvasRef = useRef(null);
+  
   // 뒤로가기
-  const canvasRef = React.createRef();
+  // const canvasRef = React.createRef();
   const undoHandler = () => {
     const undo = canvasRef.current.undo;
-
     if (undo) {
       undo();
     }
@@ -74,7 +76,7 @@ const Paint = () => {
 
   const nowColor = { color: color };
   // const import_background = lineImgs[imgSrc];
-  const import_background = '/media/canvas/line/yellow1.jpg';
+  const import_background = '/media/canvas/line/yellow1.png';
 
   return (
     <>

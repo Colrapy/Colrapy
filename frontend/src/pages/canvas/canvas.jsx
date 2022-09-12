@@ -110,19 +110,18 @@ const Canvas = () => {
 
   // 캔버스 초기화: 컨버스 요소 생성, 이미지 로드, 이벤트 추가
   const init = () => {
-    backgroundImage.src = 'images/background.png';
     outlineImage.src = '/media/canvas/line/yellow1.png';
     outlineImage.onload = () => {
       context?.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
-      setOutlineData(context.getImageData(0, 0, canvasWidth, canvasHeight));
-
-      // clearCanvas(); // 컨버스 초기화
-      setColorData(context.getImageData(0, 0, canvasWidth, canvasHeight)); // 각 픽셀에 대한 imageData 객체의 (R,G,B,A) 값을 받아옴
+      let outlineDatas = context.getImageData(0, 0, canvasWidth, canvasHeight);
+      setOutlineData(outlineDatas);
+      let colorDatas = context.getImageData(0, 0, canvasWidth, canvasHeight);
+      setColorData(colorDatas); // 각 픽셀에 대한 imageData 객체의 (R,G,B,A) 값을 받아옴
     }
   }
 
   const onSave = () => {
-    const imageURL = canvasRef.toDataURL();
+    const imageURL = canvasRef.current.toDataURL();
       const downloadImage = document.createElement("a");
       downloadImage.href = imageURL;
       downloadImage.download = "paint_image";
@@ -169,7 +168,7 @@ const Canvas = () => {
             <FontAwesomeIcon
               className={styles.icon_download}
               icon={faDownload}
-              onClick={() => onSave}
+              onClick={() => onSave()}
             />
           </div>
         </div>
