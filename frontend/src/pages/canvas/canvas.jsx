@@ -72,6 +72,9 @@ const Canvas = () => {
      canvas.width = 350;
      canvas.height = 350;
      const context = canvas.getContext("2d");
+
+     init();
+
      context.lineJoin = "round";
      context.lineWidth = 3;
      context.strokeStyle = '#000000';
@@ -108,24 +111,13 @@ const Canvas = () => {
   // 캔버스 초기화: 컨버스 요소 생성, 이미지 로드, 이벤트 추가
   const init = () => {
     backgroundImage.src = 'images/background.png';
-    // backgroundImage.onload = resourceLoaded; // 이미지 로드 후 렌더링하기
-
     outlineImage.src = '/media/canvas/line/yellow1.png';
-
     outlineImage.onload = () => {
       context?.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
-
-      // try {
-      //   // getImageData로 컨버스에 그려진 이미지 픽셀정보 얻기
-        setOutlineData(context.getImageData(0, 0, canvasWidth, canvasHeight)); // x, y(위치)와 너비, 높이(치수)
-      // } catch (error) {
-      //   window.alert("Application cannot be run locally. Please run on a server.");
-      //   return;
-      // }
+      setOutlineData(context.getImageData(0, 0, canvasWidth, canvasHeight));
 
       // clearCanvas(); // 컨버스 초기화
       setColorData(context.getImageData(0, 0, canvasWidth, canvasHeight)); // 각 픽셀에 대한 imageData 객체의 (R,G,B,A) 값을 받아옴
-      // resourceLoaded();
     }
   }
 
