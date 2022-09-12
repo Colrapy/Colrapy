@@ -49,25 +49,51 @@ const Canvas = () => {
   const [showPalette, setshowPalette] = useState(false); // 아코디언 메뉴 표시 state
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
+  const [colorData, setColorData] = useState(undefined)
+  const [outlineData, setOutlineData] = useState(undefined);
   const [brushSize, setBrushSize] = useState(1); // 브러쉬 사이즈
-  
-  // canv
+  const [canvasWidth, setCanvasWidth] = useState(350); // 캔버스 가로
+  const [canvasHeight, setCanvasHeight] = useState(350); // 캔버스 세로
+  const [context, setContext] = useState(undefined);
 
-  // 1. canvas element 참조
+  const outlineImage = new Image();
+  const backgroundImage = new Image();
+  
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    const outlineImage = new Image();
-    // const backgroundImage = new Image();
-    outlineImage.src = '/media/canvas/line/yellow1.jpg';
-    // backgroundImage.src = 'images/background.png';
-    outlineImage.onload = () => {
-      context?.drawImage(outlineImage, 0, 0, canvas.width, canvas.height);
-    }
+    canvas.width = 350;
+    canvas.height = 350;
+    setCanvasWidth(canvas.width);
+    setCanvasHeight(canvas.height);
+    setContext(canvas.getContext('2d'));
+    // init();
   });
+
+  // 캔버스 초기화: 컨버스 요소 생성, 이미지 로드, 이벤트 추가
+  const init = () => {
+    backgroundImage.src = 'images/background.png';
+    // backgroundImage.onload = resourceLoaded; // 이미지 로드 후 렌더링하기
+
+    outlineImage.src = '/media/canvas/line/yellow1.png';
+
+    outlineImage.onload = () => {
+      context?.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
+
+      // try {
+      //   // getImageData로 컨버스에 그려진 이미지 픽셀정보 얻기
+        setOutlineData(context.getImageData(0, 0, canvasWidth, canvasHeight)); // x, y(위치)와 너비, 높이(치수)
+      // } catch (error) {
+      //   window.alert("Application cannot be run locally. Please run on a server.");
+      //   return;
+      // }
+
+      // clearCanvas(); // 컨버스 초기화
+      setColorData(context.getImageData(0, 0, canvasWidth, canvasHeight)); // 각 픽셀에 대한 imageData 객체의 (R,G,B,A) 값을 받아옴
+      // resourceLoaded();
+    }
+  }
 
   const nowColor = { color: color };
   // const import_background = lineImgs[imgSrc];
@@ -168,23 +194,11 @@ const Canvas = () => {
           ''
         )}
         <div className={styles.canvas_container}>
-          {/* <ReactSketchCanvas
-            ref={canvasRef}
-            height="350px"
-            width="350px"
-            strokeWidth={brushSize}
-            strokeColor={color}
-            backgroundImage={import_background}
-            exportWithBackgroundImage={true}
-            className={styles.canvasElement}
-          /> */}
           <canvas 
             ref={canvasRef}
             width='500'
             height='500'
-            // strokeWidth={brushSize}
-            // strokeColor={color}
-            className={styles.canvasElement}
+            id={styles.canvas}
           />
         </div>
 
