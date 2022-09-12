@@ -8,12 +8,14 @@ import {
   faPaintbrush,
   faArrowRotateLeft,
   faPalette,
+  faDownload,
 } from '@fortawesome/free-solid-svg-icons';
 import { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import { authStore, colorStore } from '../../shared/store';
 import AlertBar from '../../components/alertBar';
+import { useCallback } from 'react';
 
 const Canvas = () => {
   let navigate = useNavigate();
@@ -52,24 +54,56 @@ const Canvas = () => {
   const [colorData, setColorData] = useState(undefined)
   const [outlineData, setOutlineData] = useState(undefined);
   const [brushSize, setBrushSize] = useState(1); // 브러쉬 사이즈
+
+  const [canvas, setCanvas] = useState();
   const [canvasWidth, setCanvasWidth] = useState(350); // 캔버스 가로
   const [canvasHeight, setCanvasHeight] = useState(350); // 캔버스 세로
-  const [context, setContext] = useState(undefined);
 
   const outlineImage = new Image();
   const backgroundImage = new Image();
-  
-  const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    canvas.width = 350;
-    canvas.height = 350;
-    setCanvasWidth(canvas.width);
-    setCanvasHeight(canvas.height);
-    setContext(canvas.getContext('2d'));
-    // init();
-  });
+   const canvasRef = useRef(null);
+   const [context, setContext] = useState(null);
+   const [painting, setPainting] = useState(false);
+ 
+   useEffect(() => {
+     // canvas useRef
+     const canvas = canvasRef.current;
+     canvas.width = 350;
+     canvas.height = 350;
+     const context = canvas.getContext("2d");
+     context.lineJoin = "round";
+     context.lineWidth = 3;
+     context.strokeStyle = '#000000';
+     setContext(context);
+   }, []);
+ 
+   const handleDrawing = (e) => {
+     const mouseX = e.nativeEvent.offsetX;
+     const mouseY = e.nativeEvent.offsetY;
+     context.strokeStyle = color;
+     context.lineWidth = brushSize;
+
+     // drawing
+     if (!painting) {
+       context.beginPath();
+       context.moveTo(mouseX, mouseY);
+     } else {
+       context.lineTo(mouseX, mouseY);
+       context.stroke();
+     }
+   }
+  
+
+  // useEffect(() => {
+  //   const canvas = canvasRef.current;
+  //   canvas.width = 350;
+  //   canvas.height = 350;
+  //   setCanvasWidth(canvas.width);
+  //   setCanvasHeight(canvas.height);
+  //   setContext(canvas.getContext('2d'));
+  //   // init();
+  // });
 
   // 캔버스 초기화: 컨버스 요소 생성, 이미지 로드, 이벤트 추가
   const init = () => {
@@ -93,6 +127,14 @@ const Canvas = () => {
       setColorData(context.getImageData(0, 0, canvasWidth, canvasHeight)); // 각 픽셀에 대한 imageData 객체의 (R,G,B,A) 값을 받아옴
       // resourceLoaded();
     }
+  }
+
+  const onSave = () => {
+    const imageURL = canvasRef.toDataURL();
+      const downloadImage = document.createElement("a");
+      downloadImage.href = imageURL;
+      downloadImage.download = "paint_image";
+      downloadImage.click();
   }
 
   const nowColor = { color: color };
@@ -133,8 +175,9 @@ const Canvas = () => {
           <div className={styles.control_element}>
             {/* <KakaoButton /> */}
             <FontAwesomeIcon
-              className={styles.icon_share}
-              icon={faShareNodes}
+              className={styles.icon_download}
+              icon={faDownload}
+              onClick={() => onSave}
             />
           </div>
         </div>
@@ -199,6 +242,10 @@ const Canvas = () => {
             width='500'
             height='500'
             id={styles.canvas}
+            onMouseDown={() => setPainting(true)}
+            onMouseUp={() => setPainting(false)}
+            onMouseMove={e => handleDrawing(e)}
+            onMouseLeave={() => setPainting(false)}
           />
         </div>
 

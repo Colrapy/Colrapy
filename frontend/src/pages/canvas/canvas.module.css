@@ -94,7 +94,7 @@
 
 #canvas {
   margin: 0 auto;
-  /* border: 1px solid orange; */
+  border: 1px solid orange;
   width: 350px;
   height: 350px;
 }
