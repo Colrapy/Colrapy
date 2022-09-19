@@ -11,6 +11,7 @@ import Profile from './pages/profile/profile';
 import Colrapy from './pages/colrapy/colrapy';
 import Loading from './pages/loding/loding';
 import Error from './pages/error/error';
+import Canvas from './pages/canvas/canvas';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                 <Route path='/diary/result' element={ <Result /> } />
                 <Route path='/canvas/' element={ <ChooseTemplates /> } />
                 <Route path='/canvas/painting' element={ <Paint/> } />
+                {/* <Route path='/canvas/painting' element={ <Canvas /> } /> */}
                 <Route path='/canvas/poll' element={ <Poll /> } />
                 <Route path='/*' element={ <Error /> } />
               </Routes>

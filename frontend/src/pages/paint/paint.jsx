@@ -8,6 +8,8 @@ import {
   faPaintbrush,
   faArrowRotateLeft,
   faPalette,
+  faArrowRotateRight,
+  faDownload,
 } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/button';
 import { useState, useRef, useEffect } from 'react';
@@ -49,34 +51,53 @@ const Paint = () => {
     }, 2000);
   };
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src="https://developers.kakao.com/sdk/js/kakao.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => document.body.removeChild(script);
-  }, []);
-
-
+  const [painting, setPainting] = useState(false);
   const [showPalette, setshowPalette] = useState(false); // 아코디언 메뉴 표시 state
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
-  const [brushSize, setBrushSize] = useState(1); // 브러쉬 사이즈
-  const canvas_ref = useRef(null); // 컨버스의 DOM값 가져오기
+  const [brushSize, setBrushSize] = useState(3); // 브러쉬 사이즈
+  const [dataURI, setDataURI] = useState();
+
+  const canvasRef = useRef(null);
 
   // 뒤로가기
-  const canvasRef = React.createRef();
+  // const canvasRef = React.createRef();
   const undoHandler = () => {
     const undo = canvasRef.current.undo;
-
     if (undo) {
       undo();
     }
   };
 
+  // 앞으로 가기
+  const redoHandler = () => {
+    const redo = canvasRef.current.redo;
+    if (redo) {
+      redo();
+    }
+  }
+
+  // 이미지 다운로드
+  const downloadImage = async () => {
+    const exportedDataURI = await canvasRef.current?.exportImage?.();
+
+    if (exportedDataURI) {
+      setDataURI(exportedDataURI);
+
+      const downloadImage = document.createElement("a");
+      downloadImage.href = exportedDataURI;
+      downloadImage.download = "paint_image";
+      downloadImage.click();
+    }
+  };
+
+  if(userAccess === false) {
+    return <Error accessNot={true} />
+  }
+
   const nowColor = { color: color };
-  // const import_background = lineImgs[imgSrc];
-  const import_background = '/media/canvas/line/yellow1.jpg';
+  const import_background = lineImgs[imgSrc];
+  // const import_background = '/media/canvas/line/d_blue_easy.jpg';
 
   return (
     <>
@@ -92,7 +113,12 @@ const Paint = () => {
             />
           </div>
           <div className={styles.control_element}>
-            <FontAwesomeIcon className={styles.icon_fill} icon={faFillDrip} />
+            <FontAwesomeIcon 
+              className={styles.icon_fill} 
+              // icon={faFillDrip} 
+              icon={faArrowRotateRight}
+              onClick={() => redoHandler()}
+            />
           </div>
           <div className={styles.control_element}>
             <FontAwesomeIcon
@@ -110,10 +136,10 @@ const Paint = () => {
             />
           </div>
           <div className={styles.control_element}>
-            {/* <KakaoButton /> */}
             <FontAwesomeIcon
-              className={styles.icon_share}
-              icon={faShareNodes}
+              className={styles.icon_save}
+              icon={faDownload}
+              onClick={downloadImage}
             />
           </div>
         </div>
@@ -183,7 +209,12 @@ const Paint = () => {
             exportWithBackgroundImage={true}
             className={styles.canvasElement}
           />
-          {/* <Canvas /> */}
+          {/* <Canvas 
+            ref={canvasRef}
+            strokeWidth={brushSize}
+            strokeColor={color}
+            className={styles.canvasElement}
+          /> */}
         </div>
         <Button
           content={'완성했어요!'}
