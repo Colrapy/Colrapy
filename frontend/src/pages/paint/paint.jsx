@@ -28,7 +28,7 @@ const Paint = () => {
   const [alertBar, setAlertBar] = useState(false);
 
   const location = useLocation();
-  // let imgSrc = location.state.imgSrc;
+  let imgSrc = location.state.imgSrc;
   const colors = colorStore((state) => state.colors);
   const lineImgs = colorStore((state) => state.lineImgs);
 
@@ -51,21 +51,12 @@ const Paint = () => {
     }, 2000);
   };
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src="https://developers.kakao.com/sdk/js/kakao.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => document.body.removeChild(script);
-  }, []);
-
   const [painting, setPainting] = useState(false);
   const [showPalette, setshowPalette] = useState(false); // 아코디언 메뉴 표시 state
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
   const [brushSize, setBrushSize] = useState(3); // 브러쉬 사이즈
-  const [dataURI, setDataURI] = useState('');
-  const [exportImageType, setexportImageType] = useState('png');
+  const [dataURI, setDataURI] = useState();
 
   const canvasRef = useRef(null);
 
@@ -86,32 +77,27 @@ const Paint = () => {
     }
   }
 
-
-  const imageExportHandler = async () => {
-    const exportImage = canvasRef.current?.exportImage;
-
-    if (exportImage) {
-      const exportedDataURI = await exportImage(exportImageType);
-      setDataURI(exportedDataURI);
-    }
-    const downloadImage = document.createElement('a');
-    downloadImage.href = dataURI;
-    downloadImage.download = 'paint_image';
-    downloadImage.click();
-  };
-
   // 이미지 다운로드
-  const onSave = () => {
-    const imageURL = canvasRef.current.toDataURL();
+  const downloadImage = async () => {
+    const exportedDataURI = await canvasRef.current?.exportImage?.();
+
+    if (exportedDataURI) {
+      setDataURI(exportedDataURI);
+
       const downloadImage = document.createElement("a");
-      downloadImage.href = imageURL;
+      downloadImage.href = exportedDataURI;
       downloadImage.download = "paint_image";
       downloadImage.click();
+    }
+  };
+
+  if(userAccess === false) {
+    return <Error accessNot={true} />
   }
 
   const nowColor = { color: color };
-  // const import_background = lineImgs[imgSrc];
-  const import_background = '/media/canvas/line/yellow1.png';
+  const import_background = lineImgs[imgSrc];
+  // const import_background = '/media/canvas/line/d_blue_easy.jpg';
 
   return (
     <>
@@ -150,13 +136,10 @@ const Paint = () => {
             />
           </div>
           <div className={styles.control_element}>
-            {/* <KakaoButton /> */}
             <FontAwesomeIcon
-              className={styles.icon_share}
-              // icon={faShareNodes}
+              className={styles.icon_save}
               icon={faDownload}
-              // onClick={() => onSave()}
-              onClick={() => imageExportHandler()}
+              onClick={downloadImage}
             />
           </div>
         </div>
