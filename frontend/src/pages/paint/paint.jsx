@@ -8,6 +8,8 @@ import {
   faPaintbrush,
   faArrowRotateLeft,
   faPalette,
+  faArrowRotateRight,
+  faDownload,
 } from '@fortawesome/free-solid-svg-icons';
 import Button from '../../components/button';
 import { useState, useRef, useEffect } from 'react';
@@ -62,9 +64,11 @@ const Paint = () => {
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
   const [brushSize, setBrushSize] = useState(3); // 브러쉬 사이즈
+  const [dataURI, setDataURI] = useState('');
+  const [exportImageType, setexportImageType] = useState('png');
 
   const canvasRef = useRef(null);
-  
+
   // 뒤로가기
   // const canvasRef = React.createRef();
   const undoHandler = () => {
@@ -73,6 +77,37 @@ const Paint = () => {
       undo();
     }
   };
+
+  // 앞으로 가기
+  const redoHandler = () => {
+    const redo = canvasRef.current.redo;
+    if (redo) {
+      redo();
+    }
+  }
+
+
+  const imageExportHandler = async () => {
+    const exportImage = canvasRef.current?.exportImage;
+
+    if (exportImage) {
+      const exportedDataURI = await exportImage(exportImageType);
+      setDataURI(exportedDataURI);
+    }
+    const downloadImage = document.createElement('a');
+    downloadImage.href = dataURI;
+    downloadImage.download = 'paint_image';
+    downloadImage.click();
+  };
+
+  // 이미지 다운로드
+  const onSave = () => {
+    const imageURL = canvasRef.current.toDataURL();
+      const downloadImage = document.createElement("a");
+      downloadImage.href = imageURL;
+      downloadImage.download = "paint_image";
+      downloadImage.click();
+  }
 
   const nowColor = { color: color };
   // const import_background = lineImgs[imgSrc];
@@ -92,7 +127,12 @@ const Paint = () => {
             />
           </div>
           <div className={styles.control_element}>
-            <FontAwesomeIcon className={styles.icon_fill} icon={faFillDrip} />
+            <FontAwesomeIcon 
+              className={styles.icon_fill} 
+              // icon={faFillDrip} 
+              icon={faArrowRotateRight}
+              onClick={() => redoHandler()}
+            />
           </div>
           <div className={styles.control_element}>
             <FontAwesomeIcon
@@ -113,7 +153,10 @@ const Paint = () => {
             {/* <KakaoButton /> */}
             <FontAwesomeIcon
               className={styles.icon_share}
-              icon={faShareNodes}
+              // icon={faShareNodes}
+              icon={faDownload}
+              // onClick={() => onSave()}
+              onClick={() => imageExportHandler()}
             />
           </div>
         </div>

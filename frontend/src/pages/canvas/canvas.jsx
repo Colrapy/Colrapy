@@ -51,7 +51,7 @@ const Canvas = () => {
   const [showPalette, setshowPalette] = useState(false); // 아코디언 메뉴 표시 state
   const [showBrush, setShowBrush] = useState(false); // 브러쉬 사이즈 state
   const [color, setColor] = useState('#000000'); // 색상 변경 state
-  const [colorData, setColorData] = useState(undefined)
+  const [colorData, setColorData] = useState(undefined);
   const [outlineData, setOutlineData] = useState(undefined);
   const [brushSize, setBrushSize] = useState(1); // 브러쉬 사이즈
 
@@ -60,11 +60,14 @@ const Canvas = () => {
   const [canvasHeight, setCanvasHeight] = useState(350); // 캔버스 세로
 
   const outlineImage = new Image();
-  const backgroundImage = new Image();
 
    const canvasRef = useRef(null);
    const [context, setContext] = useState(null);
    const [painting, setPainting] = useState(false);
+   const drawingAreaX = 0, drawingAreaY = 0;
+
+   const [curColor, setCurColor] = useState(undefined);
+   const [paintState, setPaintState] = useState(false);
  
    useEffect(() => {
      // canvas useRef
@@ -73,13 +76,13 @@ const Canvas = () => {
      canvas.height = 350;
      const context = canvas.getContext("2d");
 
-     init();
+     init(context);
 
      context.lineJoin = "round";
      context.lineWidth = 3;
-     context.strokeStyle = '#000000';
+     context.strokeStyle = color;
      setContext(context);
-   }, []);
+   }, outlineData);
  
    const handleDrawing = (e) => {
      const mouseX = e.nativeEvent.offsetX;
@@ -97,26 +100,13 @@ const Canvas = () => {
      }
    }
   
-
-  // useEffect(() => {
-  //   const canvas = canvasRef.current;
-  //   canvas.width = 350;
-  //   canvas.height = 350;
-  //   setCanvasWidth(canvas.width);
-  //   setCanvasHeight(canvas.height);
-  //   setContext(canvas.getContext('2d'));
-  //   // init();
-  // });
-
   // 캔버스 초기화: 컨버스 요소 생성, 이미지 로드, 이벤트 추가
-  const init = () => {
+  const init = (context) => {
     outlineImage.src = '/media/canvas/line/yellow1.png';
     outlineImage.onload = () => {
-      context?.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
-      let outlineDatas = context.getImageData(0, 0, canvasWidth, canvasHeight);
-      setOutlineData(outlineDatas);
-      let colorDatas = context.getImageData(0, 0, canvasWidth, canvasHeight);
-      setColorData(colorDatas); // 각 픽셀에 대한 imageData 객체의 (R,G,B,A) 값을 받아옴
+      context?.drawImage(outlineImage, drawingAreaX, drawingAreaY, canvasWidth, canvasHeight);
+      setOutlineData(context.getImageData(drawingAreaX, drawingAreaY, canvasWidth, canvasHeight));
+      setColorData(context.getImageData(drawingAreaX, drawingAreaY, canvasWidth, canvasHeight)); 
     }
   }
 
@@ -146,7 +136,11 @@ const Canvas = () => {
             />
           </div>
           <div className={styles.control_element}>
-            <FontAwesomeIcon className={styles.icon_fill} icon={faFillDrip} />
+            <FontAwesomeIcon 
+              className={styles.icon_fill} 
+              icon={faFillDrip} 
+              onClick={() => setPaintState(true)}
+            />
           </div>
           <div className={styles.control_element}>
             <FontAwesomeIcon
