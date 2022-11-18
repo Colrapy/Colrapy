@@ -39,6 +39,10 @@
 - 협업 도구 : git / Discode / Figma
 
 ## 프로젝트 구조
+- 프로젝트 구조
+![image02](https://user-images.githubusercontent.com/84848848/202623741-ec7740cd-147d-44ae-b156-6c152849888d.png)
+- DB Schema
+![image03](https://user-images.githubusercontent.com/84848848/202624102-febc77db-6233-4f95-92f0-37f03208a730.png)
 
 ## 프로젝트 기능
 
