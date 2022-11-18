@@ -50,6 +50,10 @@
 <br>
 
 ## 프로젝트 기능
+- 주요 기능
+
+![im4](https://user-images.githubusercontent.com/84848848/202624552-d2bab877-69b7-46c3-aa31-8e0cfe204fc0.png)
+<br>
 
 ## 트러블 슈팅
 
